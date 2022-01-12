@@ -2,23 +2,16 @@ package com.depa.progettinocovid.models;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
-@Table(name = "processi")
+@Document
 public class Processo {
 	
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@Column(name = "id")
-//	private int id;
-	
-	@Column
+	@Field
 	private Date inizio;
 	
-	@Column
+	@Field
 	private Date fine;
 
 	public Date getInizio() {
@@ -36,12 +29,4 @@ public class Processo {
 	public void setFine(Date fine) {
 		this.fine = fine;
 	}
-
-//	public int getId() {
-//		return id;
-//	}
-//
-//	public void setId(int id) {
-//		this.id = id;
-//	}
 }

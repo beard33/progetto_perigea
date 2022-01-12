@@ -19,7 +19,7 @@ import com.mongodb.client.MongoClients;
 @Configuration
 @EnableMongoRepositories(basePackages = "com.depa")
 @EnableJpaRepositories(excludeFilters = 
-  @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = ProcessoRepository.class))
+@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = ProcessoRepository.class))
 public class MongoConfig extends AbstractMongoClientConfiguration {
  
     @Override

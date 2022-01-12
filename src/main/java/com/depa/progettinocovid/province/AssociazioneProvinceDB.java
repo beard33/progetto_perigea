@@ -6,28 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.depa.progettinocovid.models.Provincia;
-import com.depa.progettinocovid.util.HibernateUtil;
+import com.depa.progettinocovid.repository.ProvinciaRepository;
 
 @Component
 public class AssociazioneProvinceDB {
 	
 	@Autowired
-	HibernateUtil hibernateUtil;
+	ProvinciaRepository repository;
 	
 	public String getSigla(String provincia) {
-		return ((List<Provincia>) hibernateUtil.list(
+		return repository.list(
 					String.format("SELECT id, sigla FROM province WHERE LOWER(nome)='%s'", provincia.toLowerCase()),
-					Provincia.class))
+					Provincia.class)
 				.stream().findFirst().get().getSigla();
 	}
 	
 	public void put(List<Provincia> province) {
-		province.stream().forEach(p->hibernateUtil.getSession().save(p));
-		hibernateUtil.getSession().flush();
-		hibernateUtil.getSession().getTransaction().commit();
+		province.stream().forEach(p->repository.put(p));
 	}
 	
 	public boolean tableEmpty () {
-		return hibernateUtil.list("SELECT * FROM province LIMIT 1", Provincia.class).isEmpty();
+		return repository.isEmpty();
 	}
 }
