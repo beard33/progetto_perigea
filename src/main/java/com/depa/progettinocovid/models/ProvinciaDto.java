@@ -1,7 +1,5 @@
 package com.depa.progettinocovid.models;
 
-import javax.persistence.Column;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

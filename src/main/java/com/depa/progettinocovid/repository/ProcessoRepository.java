@@ -9,7 +9,4 @@ import com.depa.progettinocovid.models.Processo;
 public interface ProcessoRepository extends MongoRepository<Processo, String> {
 	
 	<S extends Processo> S save(S entity);
-	
-//	@Query("{email:'?0'}")
-//	List<Conteggio> findByEmail(String email);
 }

@@ -1,4 +1,4 @@
-package com.depa.progettinocovid.province;
+package com.depa.progettinocovid.service;
 
 import java.util.List;
 
@@ -9,17 +9,13 @@ import com.depa.progettinocovid.models.Provincia;
 import com.depa.progettinocovid.repository.ProvinciaRepository;
 
 @Service
-public class AssociazioneProvinceDB {
+public class AssociazioneProvinceDBService {
 	
 	@Autowired
 	private ProvinciaRepository repository;
 	
 	public String getSigla(String provincia) {
 		return repository.findByNome(provincia.toLowerCase()).get(0).getSigla();
-//		return repository.list(
-//					String.format("SELECT id, sigla FROM province WHERE LOWER(nome)='%s'", provincia.toLowerCase()),
-//					Provincia.class)
-//				.stream().findFirst().get().getSigla();
 	}
 	
 	public void put(List<Provincia> province) {

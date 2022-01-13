@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.depa.progettinocovid.repository.ConteggioRepositoryCustom;
-import com.depa.progettinocovid.repository.ConteggioRepositoryCustom.Capo;
+import com.depa.progettinocovid.service.ConteggioAggregationService;
+import com.depa.progettinocovid.service.ConteggioAggregationService.Capo;
 
 @RestController
 public class VacciniRestController {
 	
 	@Autowired
-	ConteggioRepositoryCustom repository;
+	ConteggioAggregationService aggregator;
 	
 	// Restituire il numero totale della regione lombardia dei vaccinati con singola dose
 	@GetMapping(path = "tot_singola")
 	public ResponseEntity<Response<AggregationResults<Object>>> totSingola () {
-		AggregationResults<Object> body = repository.somma("dose1");
+		AggregationResults<Object> body = aggregator.somma("dose1");
 		
 		Response<AggregationResults<Object>> res = successResponse(
 				"Totale una dose", body);
@@ -30,7 +30,7 @@ public class VacciniRestController {
 	// Restituire il numero totale della regione lombardia dei vaccinati con doppia dose 
 	@GetMapping(path = "tot_doppia")
 	public ResponseEntity<Response<AggregationResults<Object>>> totDoppia () {
-		AggregationResults<Object> body = repository.somma("dose2");
+		AggregationResults<Object> body = aggregator.somma("dose2");
 		
 		Response<AggregationResults<Object>> res = successResponse(
 				"Totale due dosi", body);
@@ -40,7 +40,7 @@ public class VacciniRestController {
 	// Restituire il numero totale della regione lombardia dei vaccinati con singola dose per provincia
 	@GetMapping(path = "tot_singola/prov")
 	public ResponseEntity<Response<AggregationResults<Object>>> totSingolaProvincia (@RequestParam String sigla) {		
-		AggregationResults<Object> body = repository.sommaFiltra("dose1", sigla);
+		AggregationResults<Object> body = aggregator.sommaFiltra("dose1", sigla);
 		
 		Response<AggregationResults<Object>> res = successResponse(
 				"Totale singola dose " + sigla , body);
@@ -50,7 +50,7 @@ public class VacciniRestController {
 	// Restituire il numero totale della regione lombardia dei vaccinati con doppia dose per provincia
 	@GetMapping(path = "tot_doppia/prov")
 	public ResponseEntity<Response<AggregationResults<Object>>> totDoppiaProvincia (@RequestParam String sigla) {
-		AggregationResults<Object> body = repository.sommaFiltra("dose2", sigla);
+		AggregationResults<Object> body = aggregator.sommaFiltra("dose2", sigla);
 		
 		Response<AggregationResults<Object>> res = successResponse(
 				"Totale doppia dose " + sigla, body);
@@ -60,7 +60,7 @@ public class VacciniRestController {
 	// Lista ordinata per numero di vaccinati in doppia dose di tutta la lombardia
 	@GetMapping(path = "lista_doppia")
 	public ResponseEntity<Response<AggregationResults<Object>>> listaDoppia () {
-		AggregationResults<Object> body = repository.listaDoppia();
+		AggregationResults<Object> body = aggregator.listaDoppia();
 		
 		Response<AggregationResults<Object>> res = successResponse(
 				"Vaccinati doppia dose", body);
@@ -70,7 +70,7 @@ public class VacciniRestController {
 	// Lista ordinata per numero di vaccinati in doppia dose di una data provincia
 	@GetMapping(path = "lista_doppia/prov")
 	public ResponseEntity<Response<AggregationResults<Object>>> listaDoppiaProvincia (@RequestParam String sigla) {
-		AggregationResults<Object> body = repository.listaDoppiaFiltra(sigla);
+		AggregationResults<Object> body = aggregator.listaDoppiaFiltra(sigla);
 		
 		Response<AggregationResults<Object>> res = successResponse(
 				"Vaccinati doppia dose " + sigla, body);
@@ -80,7 +80,7 @@ public class VacciniRestController {
 	// Trovare il comune con più vaccinati in singola dose
 	@GetMapping(path = "comune_max_singola")
 	public ResponseEntity<Response<AggregationResults<Object>>> comuneMaxSingola () {
-		AggregationResults<Object> body = repository.capoSomma("dose1", Capo.max);
+		AggregationResults<Object> body = aggregator.capoSomma("dose1", Capo.max);
 		
 		Response<AggregationResults<Object>> res = successResponse(
 				"Comune con più vaccinati una dose", body);
@@ -90,7 +90,7 @@ public class VacciniRestController {
 	// Trovare il comune con più vaccinati in doppia dose
 	@GetMapping(path = "comune_max_doppia")
 	public ResponseEntity<Response<AggregationResults<Object>>> comuneMaxDoppia () {
-		AggregationResults<Object> body = repository.capoSomma("dose2", Capo.max);
+		AggregationResults<Object> body = aggregator.capoSomma("dose2", Capo.max);
 		
 		Response<AggregationResults<Object>> res = successResponse(
 				"Comune con più vaccinati doppia dose", body);
@@ -100,7 +100,7 @@ public class VacciniRestController {
 	// Trovare il comune con meno vaccinati in singola dose
 	@GetMapping(path = "comune_min_singola")
 	public ResponseEntity<Response<AggregationResults<Object>>> comuneMinSingola () {
-		AggregationResults<Object> body = repository.capoSomma("dose1", Capo.min);
+		AggregationResults<Object> body = aggregator.capoSomma("dose1", Capo.min);
 		
 		Response<AggregationResults<Object>> res = successResponse(
 				"Comune con meno vaccinati singola dose", body);
@@ -110,7 +110,7 @@ public class VacciniRestController {
 	// Trovare il comune con meno vaccinati in doppia dose
 	@GetMapping(path = "comune_min_doppia")
 	public ResponseEntity<Response<AggregationResults<Object>>> comuneMinDoppia () {
-		AggregationResults<Object> body = repository.capoSomma("dose2", Capo.min);
+		AggregationResults<Object> body = aggregator.capoSomma("dose2", Capo.min);
 		
 		Response<AggregationResults<Object>> res = successResponse(
 				"Comune con più vaccinati doppia dose", body);
@@ -120,7 +120,7 @@ public class VacciniRestController {
 	// Trovare il comune con più vaccinati in singola dose per una data provincia
 	@GetMapping(path = "comune_max_singola/prov")
 	public ResponseEntity<Response<AggregationResults<Object>>> comuneMaxSingola (@RequestParam String sigla) {
-		AggregationResults<Object> body = repository.capoSommaFiltra("dose1", Capo.max, sigla);
+		AggregationResults<Object> body = aggregator.capoSommaFiltra("dose1", Capo.max, sigla);
 		
 		Response<AggregationResults<Object>> res = successResponse(
 				"Comune in provincia " + sigla + "con più vaccinati una dose", body);
@@ -130,7 +130,7 @@ public class VacciniRestController {
 	// Trovare il comune con più vaccinati in doppia dose per una data provincia
 	@GetMapping(path = "comune_max_doppia/prov")
 	public ResponseEntity<Response<AggregationResults<Object>>> comuneMaxDoppia (@RequestParam String sigla) {
-		AggregationResults<Object> body = repository.capoSommaFiltra("dose2", Capo.max, sigla);
+		AggregationResults<Object> body = aggregator.capoSommaFiltra("dose2", Capo.max, sigla);
 		
 		Response<AggregationResults<Object>> res = successResponse(
 				"Comune in provincia " + sigla + "con più vaccinati doppia dose", body);

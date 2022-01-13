@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 
 import com.depa.progettinocovid.models.Conteggio;
 import com.depa.progettinocovid.models.Processo;
-import com.depa.progettinocovid.repository.ProcessoRepository;
 import com.depa.progettinocovid.rest.VacciniRestClient;
-import com.depa.progettinocovid.util.ConteggioHelper;
+import com.depa.progettinocovid.service.ConteggioService;
+import com.depa.progettinocovid.service.ProcessoService;
 import com.depa.progettinocovid.util.KafkaTransact;
 
 @EnableScheduling
@@ -26,10 +26,10 @@ public class Scheduler {
 	private KafkaTransact kafkaTransact;
 	
 	@Autowired
-	private ProcessoRepository processoRepository;
+	private ProcessoService processoService;
 	
 	@Autowired
-	private ConteggioHelper conteggioHelper;
+	private ConteggioService conteggioService;
 
 //	ogni giorno
     @Scheduled(fixedRate = 86400000)
@@ -43,12 +43,12 @@ public class Scheduler {
 		processo.setFine(new Date());
 		
 		conteggi.stream().forEach(c->{
-			conteggioHelper.addData(c);
-			conteggioHelper.addSigla(c);
+			conteggioService.addData(c);
+			conteggioService.addSigla(c);
 		});
 		
 		conteggi.stream().forEach(c->kafkaTransact.send(c));
 		
-		processoRepository.save(processo);
+		processoService.save(processo);
     }
 }

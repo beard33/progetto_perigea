@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.depa.progettinocovid.models.Conteggio;
 import com.depa.progettinocovid.repository.ConteggioRepository;
+import com.depa.progettinocovid.service.ConteggioService;
 
 // prendi nuovi dati dall'endpoint e restituiscili
 @Component
@@ -20,14 +21,14 @@ public class VacciniRestClient {
 	private RestTemplate restTemplate;
 	
 	@Autowired
-	private ConteggioRepository conteggioRepository;
+	private ConteggioService conteggioService;
 	
 	@Value("${endpoint_vaccini}")
 	private String endpoint;
 	
 	public List<Conteggio> prendiDati() {
 		try {
-			conteggioRepository.deleteAll();
+			conteggioService.deleteAll();
 			return Arrays.asList(restTemplate.getForObject(endpoint, Conteggio[].class));
 		} catch (Exception e) {
 			e.printStackTrace();
