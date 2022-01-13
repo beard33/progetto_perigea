@@ -7,6 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "province")
 public class Provincia {
@@ -27,46 +32,4 @@ public class Provincia {
 	
 	@Column
 	private String regione;
-	
-	public Provincia() {}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getCodice() {
-		return codice;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public String getSigla() {
-		return sigla;
-	}
-
-	public String getRegione() {
-		return regione;
-	}
-
-	public void setCodice(int codice) {
-		this.codice = codice;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
-	}
-
-	public void setRegione(String regione) {
-		this.regione = regione;
-	}
 }

@@ -7,6 +7,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 @Document
 public class Conteggio {
 	
@@ -35,64 +40,5 @@ public class Conteggio {
 	@JsonProperty("tot_dose2")
 	@Field
 	private int dose2;
-	
-	public Conteggio () {}
-
-	public String getCodice() {
-		return codice;
-	}
-
-	public void setCodice(String codice) {
-		this.codice = codice;
-	}
-
-	public String getComune() {
-		return comune;
-	}
-
-	public void setComune(String comune) {
-		this.comune = comune;
-	}
-
-	public String getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-
-	public String getSigla() {
-		return sigla;
-	}
-
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-	public int getDose1() {
-		return dose1;
-	}
-
-	public void setDose1(int dose1) {
-		this.dose1 = dose1;
-	}
-
-	public int getDose2() {
-		return dose2;
-	}
-
-	public void setDose2(int dose2) {
-		this.dose2 = dose2;
-	}
-	
 	
 }
