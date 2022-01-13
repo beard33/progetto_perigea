@@ -11,4 +11,5 @@ import com.depa.progettinocovid.models.Provincia;
 public interface ProvinciaRepository extends JpaRepository<Provincia, String>{
 	
 	public List<Provincia> findByNome(String nome);
+	public Provincia findBySigla(String sigla);
 }
