@@ -11,10 +11,10 @@ import com.depa.progettinocovid.models.Provincia;
 public class AssociazioneProvinceManager {
 	
 	@Autowired
-	AssociazioneProvinceDB associazioneProvinceDB;
+	private AssociazioneProvinceDB associazioneProvinceDB;
 	
 	@Autowired
-	AssociazioneProvinceRestClient associazioneProvinceRestClient;
+	private AssociazioneProvinceRestClient associazioneProvinceRestClient;
 	
 	private boolean tableFilled = false;
 	

@@ -20,16 +20,16 @@ import com.depa.progettinocovid.util.KafkaTransact;
 public class Scheduler {
 	
 	@Autowired
-	VacciniRestClient vacciniRestClient;
+	private VacciniRestClient vacciniRestClient;
 	
 	@Autowired
-	KafkaTransact kafkaTransact;
+	private KafkaTransact kafkaTransact;
 	
 	@Autowired
-	ProcessoRepository processoRepository;
+	private ProcessoRepository processoRepository;
 	
 	@Autowired
-	ConteggioHelper conteggioHelper;
+	private ConteggioHelper conteggioHelper;
 
 //	ogni giorno
     @Scheduled(fixedRate = 86400000)
