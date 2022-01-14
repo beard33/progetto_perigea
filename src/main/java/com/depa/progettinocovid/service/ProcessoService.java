@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.depa.progettinocovid.models.Processo;
 import com.depa.progettinocovid.repository.ProcessoRepository;
 
+/* servizio per interagire col repository Mongo dei processi.
+ * */
 @Service
 public class ProcessoService {
 	
@@ -23,7 +25,6 @@ public class ProcessoService {
 		return repository.findAll();
 	}
 	
-//	richiede yyyy-MM-dd
 	public List<Processo> findByDate(Date prima) {
 		return repository.findByInizioBetween(prima, new Date(prima.getTime() + 1000 * 60 * 60 * 24));
 	}

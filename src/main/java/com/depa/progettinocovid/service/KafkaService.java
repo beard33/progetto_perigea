@@ -1,4 +1,4 @@
-package com.depa.progettinocovid.util;
+package com.depa.progettinocovid.service;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -7,15 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import com.depa.progettinocovid.models.Conteggio;
 import com.depa.progettinocovid.models.ConteggioDto;
 import com.depa.progettinocovid.repository.ConteggioRepository;
 import com.depa.progettinocovid.serialization.ConteggioDeserializer;
+import com.depa.progettinocovid.util.KafkaConfig;
 
-@Component
-public class KafkaTransact {
+/* questo servizio contiene il metodo {@link send()} per mandare un messaggio al Kafka cluster
+ * e il metodo {@link inoltra(String cString)} che è il consumer dei messaggi e salva i dati nel repo
+ * */
+@Service
+public class KafkaService {
 	
 	@Autowired
 	private ConteggioRepository repository;

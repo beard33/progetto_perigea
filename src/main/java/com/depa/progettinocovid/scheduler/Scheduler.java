@@ -12,8 +12,8 @@ import com.depa.progettinocovid.models.ConteggioDto;
 import com.depa.progettinocovid.models.Processo;
 import com.depa.progettinocovid.rest.VacciniRestClient;
 import com.depa.progettinocovid.service.ConteggioService;
+import com.depa.progettinocovid.service.KafkaService;
 import com.depa.progettinocovid.service.ProcessoService;
-import com.depa.progettinocovid.util.KafkaTransact;
 
 @EnableScheduling
 @Component
@@ -23,7 +23,7 @@ public class Scheduler {
 	private VacciniRestClient vacciniRestClient;
 	
 	@Autowired
-	private KafkaTransact kafkaTransact;
+	private KafkaService kafkaService;
 	
 	@Autowired
 	private ProcessoService processoService;
@@ -47,7 +47,7 @@ public class Scheduler {
 			conteggioService.addSigla(c);
 		});
 		
-		conteggi.stream().forEach(c->kafkaTransact.send(c));
+		conteggi.stream().forEach(c->kafkaService.send(c));
 		
 		processoService.save(processo);
     }

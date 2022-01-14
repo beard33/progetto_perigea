@@ -21,8 +21,6 @@ public class DBConfig {
 	@Bean
 	public PGSimpleDataSource dataSource() {
 		PGSimpleDataSource ds = new PGSimpleDataSource();
-//		non serve perche pg già sa
-//		ds.setDriverClassName(Preconditions.checkNotNull(env.getProperty("jdbc.driverClassName")));
 		ds.setUrl(Preconditions.checkNotNull(env.getProperty("jdbc.url")));
 		ds.setUser(Preconditions.checkNotNull(env.getProperty("jdbc.user")));
 		ds.setPassword(Preconditions.checkNotNull(env.getProperty("jdbc.pass")));

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.depa.progettinocovid.models.Processo;
 import com.depa.progettinocovid.service.ProcessoService;
 
+/* espone due endpoint /processi e /processi?giorno=yyyy-MM-dd per visualizzare tutti i processi oppure solo quelli iniziati in un dato giorno
+ * */
 @RestController
 public class ProcessoRestController {
 	

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.depa.progettinocovid.models.Processo;
 
+/* interfaccia per inteagire col repository Mongo dove ogno volta che viene contatta l'API si registra quanto dura la chiamata
+ * */
 @Repository
 public interface ProcessoRepository extends MongoRepository<Processo, String> {
 	

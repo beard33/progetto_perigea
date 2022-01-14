@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.depa.progettinocovid.models.Provincia;
 
+/* interfaccia per interagire col repository Postgres dove vengono salvate informazioni riguardanti le province della Lombardia
+ * per poter associare il nome alla sigla*/
 @Repository
 public interface ProvinciaRepository extends JpaRepository<Provincia, String>{
 	

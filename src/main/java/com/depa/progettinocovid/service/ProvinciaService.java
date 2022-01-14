@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.depa.progettinocovid.models.Provincia;
 import com.depa.progettinocovid.repository.ProvinciaRepository;
 
+/* servizio per interagire col repository Postgres delle province
+ * */
 @Service
 public class ProvinciaService {
 	

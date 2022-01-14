@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.depa.progettinocovid.models.Provincia;
 
+/* servizio per accedere all'API delle province
+ */
 @Service
 public class AssociazioneProvinceRestService {
 	
