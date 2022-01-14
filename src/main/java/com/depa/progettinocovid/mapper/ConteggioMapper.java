@@ -1,4 +1,9 @@
 package com.depa.progettinocovid.mapper;
+/**
+ * Mapper per il passaggio da {@link com.depa.progettinocovid.models.Conteggio}
+ * a {@link com.depa.progettinocovid.models.ConteggioDto}
+ */
+
 
 import java.util.List;
 

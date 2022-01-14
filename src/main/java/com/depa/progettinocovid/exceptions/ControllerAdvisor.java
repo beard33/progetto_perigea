@@ -1,4 +1,10 @@
 package com.depa.progettinocovid.exceptions;
+/**
+ * ControllerAdvice per la gestione delle eccezioni del
+ *  {@link com.depa.progettinocovid.rest.VacciniRestController} e restituzione
+ *  di una response uniforme anche in caso di errori
+ */
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

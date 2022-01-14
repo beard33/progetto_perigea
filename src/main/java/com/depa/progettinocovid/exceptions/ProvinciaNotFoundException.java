@@ -1,4 +1,9 @@
 package com.depa.progettinocovid.exceptions;
+/**
+ * Eccezione custom per la gestione di un 404 not found relativo alla provincia
+ * nel {@link com.depa.progettinocovid.rest.VacciniRestController}
+ *
+ */
 
 public class ProvinciaNotFoundException extends RuntimeException {
 

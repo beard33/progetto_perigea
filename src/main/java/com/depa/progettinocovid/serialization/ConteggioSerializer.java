@@ -1,5 +1,9 @@
 package com.depa.progettinocovid.serialization;
-
+/**
+ * Insieme a {@link com.depa.progettinocovid.serialization.ConteggioDeserializer} è
+ * responsabile della serializzazione e deserializzazione dei dati per la trasmissione
+ * sul topic Kafka dedicato
+ */
 import java.util.Map;
 import com.depa.progettinocovid.models.ConteggioDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
