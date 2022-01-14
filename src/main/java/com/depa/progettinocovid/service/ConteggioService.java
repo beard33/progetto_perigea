@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.depa.progettinocovid.models.Conteggio;
+import com.depa.progettinocovid.models.ConteggioDto;
 import com.depa.progettinocovid.repository.ConteggioRepository;
 
 @Service
@@ -14,7 +15,7 @@ public class ConteggioService {
 	@Autowired
 	ConteggioRepository repository;
 	
-	public void save(Conteggio p) {
+	public void save(ConteggioDto p) {
 		repository.save(p);
 	}
 	
@@ -25,11 +26,11 @@ public class ConteggioService {
 	@Autowired
 	private AssociazioneProvinceService associatore;
 	
-	public void addSigla(Conteggio c) {
+	public void addSigla(ConteggioDto c) {
 		c.setSigla(associatore.getSigla(c.getProvincia()));
 	}
 	
-	public void addData(Conteggio c) {
+	public void addData(ConteggioDto c) {
 		c.setData(new Date());
 	}
 }

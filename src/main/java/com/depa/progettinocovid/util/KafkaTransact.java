@@ -10,6 +10,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import com.depa.progettinocovid.models.Conteggio;
+import com.depa.progettinocovid.models.ConteggioDto;
 import com.depa.progettinocovid.repository.ConteggioRepository;
 import com.depa.progettinocovid.serialization.ConteggioDeserializer;
 
@@ -28,9 +29,9 @@ public class KafkaTransact {
 	@Value("${topic}")
 	private String topic;
 	
-	public void send(Conteggio c) {
-		try (Producer<String, Conteggio> producer = new KafkaProducer<>(kafkaConfig.getProducerProps())) {
-		   producer.send(new ProducerRecord<String, Conteggio>(topic, c));
+	public void send(ConteggioDto c) {
+		try (Producer<String, ConteggioDto> producer = new KafkaProducer<>(kafkaConfig.getProducerProps())) {
+		   producer.send(new ProducerRecord<String, ConteggioDto>(topic, c));
 		   producer.close();
 		} catch (Exception e) {
 		   e.printStackTrace();

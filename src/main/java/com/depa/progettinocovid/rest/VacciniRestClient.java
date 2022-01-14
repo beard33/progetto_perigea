@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.depa.progettinocovid.mapper.ConteggioMapper;
 import com.depa.progettinocovid.models.Conteggio;
-import com.depa.progettinocovid.repository.ConteggioRepository;
+import com.depa.progettinocovid.models.ConteggioDto;
 import com.depa.progettinocovid.service.ConteggioService;
 
 // prendi nuovi dati dall'endpoint e restituiscili
@@ -26,14 +27,16 @@ public class VacciniRestClient {
 	@Value("${endpoint_vaccini}")
 	private String endpoint;
 	
-	public List<Conteggio> prendiDati() {
+	public List<ConteggioDto> prendiDati() {
 		try {
 			conteggioService.deleteAll();
-			return Arrays.asList(restTemplate.getForObject(endpoint, Conteggio[].class));
+			List<Conteggio> conteggi = Arrays.asList(
+					restTemplate.getForObject(endpoint, Conteggio[].class));
+			return ConteggioMapper.INSTANCE.mapToDtoList(conteggi);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return new ArrayList<Conteggio>();
+		return new ArrayList<ConteggioDto>();
 	}
 }

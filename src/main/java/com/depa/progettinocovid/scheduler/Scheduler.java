@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.depa.progettinocovid.models.Conteggio;
+import com.depa.progettinocovid.models.ConteggioDto;
 import com.depa.progettinocovid.models.Processo;
 import com.depa.progettinocovid.rest.VacciniRestClient;
 import com.depa.progettinocovid.service.ConteggioService;
@@ -39,7 +40,7 @@ public class Scheduler {
     	
 //    	misuro quanto ci mette
     	processo.setInizio(new Date());
-		List<Conteggio> conteggi = vacciniRestClient.prendiDati();
+		List<ConteggioDto> conteggi = vacciniRestClient.prendiDati();
 		processo.setFine(new Date());
 		
 		conteggi.stream().forEach(c->{

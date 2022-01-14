@@ -3,22 +3,21 @@ package com.depa.progettinocovid.serialization;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
-
-import com.depa.progettinocovid.models.Conteggio;
+import com.depa.progettinocovid.models.ConteggioDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
-public class ConteggioDeserializer implements Deserializer<Conteggio> {
+public class ConteggioDeserializer implements Deserializer<ConteggioDto> {
 
 	@Override
 	public void configure(Map<String, ?> map, boolean b) {}
 
 	@Override
-	public Conteggio deserialize(byte[] byteString) {
+	public ConteggioDto deserialize(byte[] byteString) {
 		ObjectMapper mapper = new ObjectMapper();
-	    Conteggio user = null;
+	    ConteggioDto user = null;
 	    try {
-	      user = mapper.readValue(byteString, Conteggio.class);
+	      user = mapper.readValue(byteString, ConteggioDto.class);
 	    } catch (Exception e) {
 
 	      e.printStackTrace();
@@ -30,7 +29,7 @@ public class ConteggioDeserializer implements Deserializer<Conteggio> {
 	public void close() {}
 
 	@Override
-	public Conteggio deserialize(String topic, byte[] data) {
+	public ConteggioDto deserialize(String topic, byte[] data) {
 		return deserialize(data);
 	}
 
