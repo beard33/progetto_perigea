@@ -19,8 +19,10 @@ public class AssociazioneProvinceService {
 	@Autowired
 	private AssociazioneProvinceRestService restService;
 	
+//	TODO persistere!
 	private boolean tableFilled = false;
 	
+//	schedulabile
 	private void fillTable() {
 		List<Provincia> province;
 		if (dbService.tableEmpty()) {

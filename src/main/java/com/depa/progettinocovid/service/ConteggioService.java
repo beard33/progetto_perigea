@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.depa.progettinocovid.mapper.ConteggioMapper;
 import com.depa.progettinocovid.models.ConteggioDto;
 import com.depa.progettinocovid.repository.ConteggioRepository;
 
@@ -14,18 +15,18 @@ import com.depa.progettinocovid.repository.ConteggioRepository;
 public class ConteggioService {
 	
 	@Autowired
-	ConteggioRepository repository;
+	private ConteggioRepository repository;
+	
+	@Autowired
+	private AssociazioneProvinceService associatore;
 	
 	public void save(ConteggioDto p) {
-		repository.save(p);
+		repository.save(ConteggioMapper.INSTANCE.mapToEntity(p));
 	}
 	
 	public void deleteAll() {
 		repository.deleteAll();
 	}
-	
-	@Autowired
-	private AssociazioneProvinceService associatore;
 	
 	public void addSigla(ConteggioDto c) {
 		c.setSigla(associatore.getSigla(c.getProvincia()));

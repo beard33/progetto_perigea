@@ -42,6 +42,7 @@ public class Scheduler {
 		List<ConteggioDto> conteggi = vacciniRestClient.prendiDati();
 		processo.setFine(new Date());
 		
+//		TODO performance
 		conteggi.stream().forEach(c->{
 			conteggioService.addData(c);
 			conteggioService.addSigla(c);

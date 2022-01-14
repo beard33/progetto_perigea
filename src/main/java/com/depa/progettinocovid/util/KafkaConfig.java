@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class KafkaConfig {
 	public static final String BROKERS = "localhost:9092";
+	
+// TODO inserire BEAN producer
 
 	public Properties getProducerProps() {
 		Properties props = new Properties();

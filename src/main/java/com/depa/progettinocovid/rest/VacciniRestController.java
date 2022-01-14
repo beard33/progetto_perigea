@@ -1,10 +1,13 @@
 package com.depa.progettinocovid.rest;
 
+import javax.websocket.server.PathParam;
+
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,14 +19,15 @@ import com.depa.progettinocovid.service.ConteggioAggregationService.Capo;
 /** espone vari endpoint che servono dati aggregati sulle somministrazioni avvenute in Lombardia
  * */
 @RestController
+@RequestMapping("/dosi")
 public class VacciniRestController {
 	
 	@Autowired
-	ConteggioAggregationService aggregator;
+	private ConteggioAggregationService aggregator;
 	
 	// TODO - Svincolare Data aggregator da postgres
 	@Autowired
-	ProvinciaRepository provinceRepo;
+	private ProvinciaRepository provinceRepo;
 	
 	// Restituire il numero totale della regione lombardia dei vaccinati con singola dose
 	@GetMapping(path = "tot_singola")
@@ -44,8 +48,8 @@ public class VacciniRestController {
 	}
 	
 	// Restituire il numero totale della regione lombardia dei vaccinati con singola dose per provincia
-	@GetMapping(path = "tot_singola/prov")
-	public ResponseEntity<Response<Document>> totSingolaProvincia (@RequestParam String sigla) {		
+	@GetMapping(path = "tot_singola/prov/{sigla}")
+	public ResponseEntity<Response<Document>> totSingolaProvincia (@PathParam(value = "sigla") String sigla) {		
 		if (provinceRepo.findBySigla(sigla) == null)
 			throw new ProvinciaNotFoundException(sigla);
 		

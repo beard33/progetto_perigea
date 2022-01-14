@@ -9,6 +9,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
+import com.depa.progettinocovid.mapper.ConteggioMapper;
 import com.depa.progettinocovid.models.ConteggioDto;
 import com.depa.progettinocovid.repository.ConteggioRepository;
 import com.depa.progettinocovid.serialization.ConteggioDeserializer;
@@ -29,6 +30,8 @@ public class KafkaService {
 	@Autowired
 	private ConteggioDeserializer conteggioDeserializer;
 	
+//	TODO autowire producer
+	
 	@Value("${topic}")
 	private String topic;
 	
@@ -41,8 +44,9 @@ public class KafkaService {
 		}
 	}
 	
+//	TODO farlo serializzare a kafka
 	@KafkaListener(topics = {"${topic}"}, groupId = "test-consumer-group")
 	public void inoltra (@Payload String cString) {
-		repository.save(conteggioDeserializer.deserialize(cString.getBytes()));
+		repository.save(ConteggioMapper.INSTANCE.mapToEntity(conteggioDeserializer.deserialize(cString.getBytes())));
 	}
 }

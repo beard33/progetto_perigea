@@ -19,7 +19,7 @@ import com.mongodb.client.MongoClients;
 /** questa classe config contiene la configurazione del database Mongo
  * */
 @Configuration
-@EnableMongoRepositories(basePackages = "com.depa")
+@EnableMongoRepositories(basePackages = "com.depa.progettinocovid.repository")
 @EnableJpaRepositories(excludeFilters = 
 @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = ProcessoRepository.class))
 public class MongoConfig extends AbstractMongoClientConfiguration {

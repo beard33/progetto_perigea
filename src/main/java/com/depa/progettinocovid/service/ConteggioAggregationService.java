@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class ConteggioAggregationService {
 	
 	@Autowired
-	MongoTemplate template;
+	private MongoTemplate template;
 	
 	public enum Capo {min, max}
 	
