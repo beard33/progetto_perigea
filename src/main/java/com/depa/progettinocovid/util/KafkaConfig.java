@@ -2,7 +2,11 @@ package com.depa.progettinocovid.util;
 
 import java.util.Properties;
 
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.depa.progettinocovid.models.ConteggioDto;
 
 /** configurazione per il producer e il consumer kafka
  * */
@@ -10,7 +14,10 @@ import org.springframework.context.annotation.Configuration;
 public class KafkaConfig {
 	public static final String BROKERS = "localhost:9092";
 	
-// TODO inserire BEAN producer
+	@Bean
+	public KafkaProducer<String, ConteggioDto> kafkaProducer () {
+		return new KafkaProducer<>(getProducerProps());
+	}
 
 	public Properties getProducerProps() {
 		Properties props = new Properties();

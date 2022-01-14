@@ -58,7 +58,7 @@ public class Scheduler {
     }
     
 //    ogni mese
-    @Scheduled(cron = "0 0 0 20 * *")
+    @Scheduled(fixedRate = 259200000)
     public void aggiornaProvince() {
     	provinceService.emptyDB();
     	provinceService.fillTable();

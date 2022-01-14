@@ -1,7 +1,6 @@
 package com.depa.progettinocovid.service;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +12,6 @@ import com.depa.progettinocovid.mapper.ConteggioMapper;
 import com.depa.progettinocovid.models.ConteggioDto;
 import com.depa.progettinocovid.repository.ConteggioRepository;
 import com.depa.progettinocovid.serialization.ConteggioDeserializer;
-import com.depa.progettinocovid.util.KafkaConfig;
 
 /** questo servizio contiene il metodo {@link send(ConteggioDto c)} per mandare un messaggio al Kafka cluster
  * e il metodo {@link inoltra(String cString)} che è il consumer dei messaggi e salva i dati nel repo
@@ -25,20 +23,18 @@ public class KafkaService {
 	private ConteggioRepository repository;
 	
 	@Autowired
-	private KafkaConfig kafkaConfig;
-	
-	@Autowired
 	private ConteggioDeserializer conteggioDeserializer;
 	
-//	TODO autowire producer
+	@Autowired
+	private KafkaProducer<String, ConteggioDto> kafkaProducer;
 	
 	@Value("${topic}")
 	private String topic;
 	
 	public void send(ConteggioDto c) {
-		try (Producer<String, ConteggioDto> producer = new KafkaProducer<>(kafkaConfig.getProducerProps())) {
-		   producer.send(new ProducerRecord<String, ConteggioDto>(topic, c));
-		   producer.close();
+		try {
+		   kafkaProducer.send(new ProducerRecord<String, ConteggioDto>(topic, c));
+		   kafkaProducer.close();
 		} catch (Exception e) {
 		   e.printStackTrace();
 		}
