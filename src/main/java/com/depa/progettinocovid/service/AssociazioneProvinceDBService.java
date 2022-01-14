@@ -16,12 +16,12 @@ public class AssociazioneProvinceDBService {
 	@Autowired
 	private ProvinciaRepository repository;
 	
-	public String getSigla(String provincia) {
-		return repository.findByNome(provincia.toLowerCase()).get(0).getSigla();
-	}
-	
 	public void put(List<Provincia> province) {
 		province.stream().forEach(p->repository.save(p));
+	}
+	
+	public List<Provincia> getAllProvince(){
+		return repository.findAll();
 	}
 	
 	public boolean tableEmpty () {
