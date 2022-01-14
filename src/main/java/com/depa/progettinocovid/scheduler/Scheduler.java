@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.depa.progettinocovid.models.ConteggioDto;
 import com.depa.progettinocovid.models.Processo;
 import com.depa.progettinocovid.rest.VacciniRestClient;
+import com.depa.progettinocovid.service.AssociazioneProvinceService;
 import com.depa.progettinocovid.service.ConteggioService;
 import com.depa.progettinocovid.service.KafkaService;
 import com.depa.progettinocovid.service.ProcessoService;
@@ -30,6 +31,9 @@ public class Scheduler {
 	
 	@Autowired
 	private ConteggioService conteggioService;
+	
+	@Autowired
+	private AssociazioneProvinceService provinceService;
 
 //	ogni giorno
     @Scheduled(fixedRate = 86400000)
@@ -51,5 +55,12 @@ public class Scheduler {
 		conteggi.stream().forEach(c->kafkaService.send(c));
 		
 		processoService.save(processo);
+    }
+    
+//    ogni mese
+    @Scheduled(fixedRate = 86400000 * 30)
+    public void aggiornaProvince() {
+    	provinceService.emptyDB();
+    	provinceService.fillTable();
     }
 }

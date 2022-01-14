@@ -1,11 +1,7 @@
 package com.depa.progettinocovid.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.depa.progettinocovid.models.Provincia;
 
 /** questo servizio funge da punto di ingresso univoco per associare il nome di una provincia alla sua sigla.
  * comunica con {@link AssociazioneProvinceRestService} se necessario, altrimenti interroga il DB
@@ -19,26 +15,21 @@ public class AssociazioneProvinceService {
 	@Autowired
 	private AssociazioneProvinceRestService restService;
 	
-//	TODO persistere!
-	private boolean tableFilled = false;
-	
-//	schedulabile
-	private void fillTable() {
-		List<Provincia> province;
-		if (dbService.tableEmpty()) {
-			province = restService.get();
-			dbService.put(province);
-			tableFilled = true;
-		}
+	public void fillTable() {
+		dbService.put(restService.get());
 	}
 	
 	public String getSigla(String provincia) {
 		if (provincia.equalsIgnoreCase("ignota")) {
 			return "XX";
-		} else if (!tableFilled) {
+		} else if (dbService.tableEmpty()) {
 			fillTable();
 		}
 		return dbService.getSigla(provincia);
+	}
+	
+	public void emptyDB () {
+		dbService.deleteAll();
 	}
 
 }

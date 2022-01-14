@@ -27,4 +27,8 @@ public class AssociazioneProvinceDBService {
 	public boolean tableEmpty () {
 		return repository.findAll().isEmpty();
 	}
+	
+	public void deleteAll() {
+		repository.deleteAll();
+	}
 }
