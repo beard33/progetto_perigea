@@ -53,7 +53,7 @@ public class Scheduler {
 		});
 		
 		conteggi.stream().forEach(c->kafkaService.send(c));
-		
+		kafkaService.closeKafka();
 		processoService.save(processo);
     }
     

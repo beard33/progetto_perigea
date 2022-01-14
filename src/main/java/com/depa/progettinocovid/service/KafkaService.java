@@ -31,6 +31,10 @@ public class KafkaService {
 	@Value("${topic}")
 	private String topic;
 	
+	public void closeKafka() {
+		kafkaProducer.close();
+	}
+	
 //	TODO il producer va distrutto quando si ha finito di usarlo. come?
 	public void send(ConteggioDto c) {
 		try {
