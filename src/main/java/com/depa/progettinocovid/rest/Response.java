@@ -21,5 +21,4 @@ public class Response<T> {
 	private String timestamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 		.format(new Date());
 	private T body;
-	
 }

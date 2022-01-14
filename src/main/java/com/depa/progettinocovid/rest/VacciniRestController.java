@@ -126,7 +126,7 @@ public class VacciniRestController {
 			throw new ProvinciaNotFoundException(sigla);
 		
 		Document body = aggregator.capoSommaFiltra("dose1", Capo.max, sigla);
-		Response<Document> res = successResponse("Comune in provincia " + sigla + "con più vaccinati una dose", body);
+		Response<Document> res = successResponse("Comune in provincia " + sigla + " con più vaccinati una dose", body);
 		return new ResponseEntity<Response<Document>>(res, HttpStatus.OK);
 	}
 	
@@ -137,10 +137,11 @@ public class VacciniRestController {
 			throw new ProvinciaNotFoundException(sigla);
 		
 		Document body = aggregator.capoSommaFiltra("dose2", Capo.max, sigla);
-		Response<Document> res = successResponse("Comune in provincia " + sigla + "con più vaccinati doppia dose", body);
+		Response<Document> res = successResponse("Comune in provincia " + sigla + " con più vaccinati doppia dose", body);
 		return new ResponseEntity<Response<Document>>(res, HttpStatus.OK);
 	}
 	
+//	TODO estrarre, possibilmente in Response
 	private <T> Response<T> successResponse(String desc, T body) {
 		Response<T> response = Response.<T>builder()
 				.type(Response.Type.SUCCESS)
