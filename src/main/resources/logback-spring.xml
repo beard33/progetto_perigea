@@ -46,7 +46,7 @@
 	</logger>
 
 	<!--Aggiungere Kafka log-->
-	<logger name="org.apache.kafka" level="DEBUG" additivity="false">
+	<logger name="org.apache.kafka" level="${log.level}" additivity="false">
 		<appender-ref ref="COVID_API_LOG"/>
 		<appender-ref ref = "CONSOLE"/>
 	</logger>
