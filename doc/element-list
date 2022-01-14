@@ -1,0 +1,10 @@
+com.depa.progettinocovid
+com.depa.progettinocovid.exceptions
+com.depa.progettinocovid.mapper
+com.depa.progettinocovid.models
+com.depa.progettinocovid.repository
+com.depa.progettinocovid.rest
+com.depa.progettinocovid.scheduler
+com.depa.progettinocovid.serialization
+com.depa.progettinocovid.service
+com.depa.progettinocovid.util

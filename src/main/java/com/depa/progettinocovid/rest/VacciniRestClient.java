@@ -30,9 +30,7 @@ public class VacciniRestClient {
 	public List<ConteggioDto> prendiDati() {
 		try {
 			conteggioService.deleteAll();
-			List<Conteggio> conteggi = Arrays.asList(
-					restTemplate.getForObject(endpoint, Conteggio[].class));
-			return ConteggioMapper.INSTANCE.mapToDtoList(conteggi);
+			return ConteggioMapper.INSTANCE.mapToDtoList(Arrays.asList(restTemplate.getForObject(endpoint, Conteggio[].class)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
