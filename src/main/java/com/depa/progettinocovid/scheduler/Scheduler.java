@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import com.depa.progettinocovid.models.Conteggio;
 import com.depa.progettinocovid.models.ConteggioDto;
 import com.depa.progettinocovid.models.Processo;
 import com.depa.progettinocovid.rest.VacciniRestClient;
