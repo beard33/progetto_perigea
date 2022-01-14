@@ -26,23 +26,21 @@ public class AssociazioneProvinceService {
 		dbService.put(restService.get());
 	}
 	
-	private void FillMap() {
-		if (dbService.tableEmpty())
+	private void fillMap() {
+		if (dbService.tableEmpty()) {
 			fillTable();
+		}
 		
 		List<Provincia> listaProvince = dbService.getAllProvince();
-		for (Provincia p : listaProvince) {
-			sigleProvince.put(p.getNome(), p.getSigla());
-		}
+		listaProvince.forEach(p->sigleProvince.put(p.getNome(), p.getSigla()));
 	}
 	
 	public String getSigla(String provincia) {
-		if (sigleProvince.isEmpty())
-			FillMap();
-		if (provincia.equalsIgnoreCase("ignota"))
-			return "XX";
+		if (sigleProvince.isEmpty()) {
+			fillMap();
+		}
 		
-		return sigleProvince.get(provincia.toLowerCase());
+		return provincia.equalsIgnoreCase("ignota") ? "XX" : sigleProvince.get(provincia.toLowerCase());
 	}
 	
 	public void emptyDB () {

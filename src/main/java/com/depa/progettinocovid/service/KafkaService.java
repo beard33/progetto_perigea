@@ -31,10 +31,10 @@ public class KafkaService {
 	@Value("${topic}")
 	private String topic;
 	
+//	TODO il producer va distrutto quando si ha finito di usarlo. come?
 	public void send(ConteggioDto c) {
 		try {
 		   kafkaProducer.send(new ProducerRecord<String, ConteggioDto>(topic, c));
-		   kafkaProducer.close();
 		} catch (Exception e) {
 		   e.printStackTrace();
 		}
