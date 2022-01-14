@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.depa.progettinocovid.models.Processo;
 import com.depa.progettinocovid.repository.ProcessoRepository;
 
-/* servizio per interagire col repository Mongo dei processi.
+/** servizio per interagire col repository Mongo dei processi.
  * */
 @Service
 public class ProcessoService {

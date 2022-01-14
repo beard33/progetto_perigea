@@ -16,7 +16,7 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
-/* questa classe config contiene la configurazione del database Mongo
+/** questa classe config contiene la configurazione del database Mongo
  * */
 @Configuration
 @EnableMongoRepositories(basePackages = "com.depa")

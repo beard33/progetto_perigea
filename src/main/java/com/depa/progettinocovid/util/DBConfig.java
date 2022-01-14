@@ -11,7 +11,8 @@ import org.springframework.transaction.TransactionManager;
 
 import com.google.common.base.Preconditions;
 
-// configurazione per il db postgres usato per associazione province
+/** configurazione per il db postgres usato per associazione province
+ * */
 @Configuration
 public class DBConfig {
 	

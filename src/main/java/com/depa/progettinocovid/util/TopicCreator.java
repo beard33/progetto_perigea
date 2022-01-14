@@ -8,7 +8,7 @@ import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 
-/* questa classe astratta contiene solo un metodo per creare il topic kafka
+/** questa classe astratta contiene solo un metodo per creare il topic kafka
  * */
 public abstract class TopicCreator {
 

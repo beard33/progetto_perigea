@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.depa.progettinocovid.models.Provincia;
 
-/* questo servizio funge da punto di ingresso univoco per associare il nome di una provincia alla sua sigla.
+/** questo servizio funge da punto di ingresso univoco per associare il nome di una provincia alla sua sigla.
  * comunica con {@link AssociazioneProvinceRestService} se necessario, altrimenti interroga il DB
  * */
 @Service

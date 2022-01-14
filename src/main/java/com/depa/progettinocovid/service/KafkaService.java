@@ -14,7 +14,7 @@ import com.depa.progettinocovid.repository.ConteggioRepository;
 import com.depa.progettinocovid.serialization.ConteggioDeserializer;
 import com.depa.progettinocovid.util.KafkaConfig;
 
-/* questo servizio contiene il metodo {@link send()} per mandare un messaggio al Kafka cluster
+/** questo servizio contiene il metodo {@link send(ConteggioDto c)} per mandare un messaggio al Kafka cluster
  * e il metodo {@link inoltra(String cString)} che è il consumer dei messaggi e salva i dati nel repo
  * */
 @Service

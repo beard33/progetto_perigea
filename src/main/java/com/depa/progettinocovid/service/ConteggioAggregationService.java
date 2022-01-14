@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
-/* questo servizio contiene metodi generalizzati per aggregare in vari modi i dati sui conteggi
+/** questo servizio contiene metodi generalizzati per aggregare in vari modi i dati sui conteggi
  * */
 @Service
 public class ConteggioAggregationService {

@@ -14,7 +14,7 @@ import com.depa.progettinocovid.models.Conteggio;
 import com.depa.progettinocovid.models.ConteggioDto;
 import com.depa.progettinocovid.service.ConteggioService;
 
-/* {@link prendiDati()} interroga l'API socrata e restituisce i conteggi come List. Viene chiamato da {@link Scheduler}
+/** {@link prendiDati()} interroga l'API socrata e restituisce i conteggi come List. Viene chiamato da {@link com.depa.progettinocovid.scheduler.Scheduler}
  * */
 @Component
 public class VacciniRestClient {

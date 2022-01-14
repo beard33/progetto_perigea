@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-/* wrapper da restituire dai controller contiene status code, timestamp, descrizione insieme a body tipizzabile
+/** wrapper da restituire dai controller contiene status code, timestamp, descrizione insieme a body tipizzabile
  */
 @Data
 @Builder

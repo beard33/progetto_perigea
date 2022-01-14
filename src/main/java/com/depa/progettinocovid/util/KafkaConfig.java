@@ -4,7 +4,7 @@ import java.util.Properties;
 
 import org.springframework.context.annotation.Configuration;
 
-/* configurazione per il producer e il consumer kafka
+/** configurazione per il producer e il consumer kafka
  * */
 @Configuration
 public class KafkaConfig {

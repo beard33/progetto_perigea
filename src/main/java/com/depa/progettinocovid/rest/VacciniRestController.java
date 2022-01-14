@@ -13,7 +13,7 @@ import com.depa.progettinocovid.repository.ProvinciaRepository;
 import com.depa.progettinocovid.service.ConteggioAggregationService;
 import com.depa.progettinocovid.service.ConteggioAggregationService.Capo;
 
-/* espone vari endpoint che servono dati aggregati sulle somministrazioni avvenute in Lombardia
+/** espone vari endpoint che servono dati aggregati sulle somministrazioni avvenute in Lombardia
  * */
 @RestController
 public class VacciniRestController {
