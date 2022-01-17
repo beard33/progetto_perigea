@@ -15,7 +15,7 @@ import com.mongodb.client.MongoClients;
 /** questa classe config contiene la configurazione del database Mongo
  * */
 @Configuration
-@EnableMongoRepositories(basePackages = "com.depa.progettinocovid.repository")
+@EnableMongoRepositories(basePackages = "com.depa.progettinocovid.DataAggregator.repository")
 public class MongoConfig extends AbstractMongoClientConfiguration {
  
     @Override

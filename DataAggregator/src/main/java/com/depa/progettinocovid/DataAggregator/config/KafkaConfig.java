@@ -17,7 +17,7 @@ public class KafkaConfig {
 		props.setProperty("enable.auto.commit", "false");
 		props.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 		props.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-		props.setProperty("value.deserializer", "com.depa.progettinocovid.serialization.ConteggioDeserializer");
+		props.setProperty("value.deserializer", "com.depa.progettinocovid.DataAggregator.serialization.ConteggioDeserializer");
 		return props;
 	}
 }
