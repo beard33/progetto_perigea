@@ -47,11 +47,9 @@ public class Scheduler {
 		conteggi.stream().forEach(c -> {
 			conteggioService.addDate(c);
 			conteggioService.addSigla(c);
-			//System.out.println(c);
+			kafkaService.send(c);
 		});
 		
-		// Perchè non mandarlo direttamente nel primo FE?
-		conteggi.stream().forEach(c -> kafkaService.send(c));
 		kafkaService.closeKafka();
 		processoService.save(processo);
 	}
