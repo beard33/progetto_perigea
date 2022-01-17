@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.depa.progettinocovid.DataExtractor.exceptions.DateOutOfRangeException;
 import com.depa.progettinocovid.DataExtractor.model.ProcessoDto;
 import com.depa.progettinocovid.DataExtractor.service.ProcessoService;
 
@@ -22,6 +23,8 @@ public class ProcessoRestController {
 	
 	@Autowired
 	private ProcessoService processoService;
+	
+	private static Date today = new Date();
 	
 	// Restituire tutti i processi presenti nel DB
 	@GetMapping(path = "processi")
@@ -37,8 +40,11 @@ public class ProcessoRestController {
 	@GetMapping(path = "processi", params = {"giorno"})
 	public ResponseEntity<Response<List<ProcessoDto>>> listaProcessi (
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date giorno) throws ParseException {
-		List<ProcessoDto> lista = processoService.findByDate(giorno);
 		
+		if (today.before(giorno))
+			throw new DateOutOfRangeException(giorno);
+		
+		List<ProcessoDto> lista = processoService.findByDate(giorno);
 		Response<List<ProcessoDto>> res = successResponse("Tutti i processi registrati il " + giorno, lista);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
