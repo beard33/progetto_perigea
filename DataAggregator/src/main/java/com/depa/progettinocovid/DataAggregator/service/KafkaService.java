@@ -42,7 +42,7 @@ public class KafkaService {
 	public void inoltraStatiClinici (@Payload String sString) {
 		StatiCliniciDto s = statiCliniciDeserializer.deserialize(sString.getBytes());
 		
-		if (!statiCliniciService.dateExists(s.getData_inizio_sintomi())) {
+		if (!statiCliniciService.dateExists(s.getDataInizioSintomi())) {
 			statiCliniciService.save(s);
 		}		
 	}
