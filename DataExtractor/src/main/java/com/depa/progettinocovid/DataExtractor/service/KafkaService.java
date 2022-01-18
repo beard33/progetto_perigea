@@ -40,7 +40,7 @@ public class KafkaService {
 		}
 	}
 	
-	public void send(StatiCliniciDto c) {
+	public void sendStatiClinici(StatiCliniciDto c) {
 		try {
 			statiCliniciProducer.send(new ProducerRecord<String, StatiCliniciDto>(staticliniciTopic, c));
 		} catch (Exception e) {

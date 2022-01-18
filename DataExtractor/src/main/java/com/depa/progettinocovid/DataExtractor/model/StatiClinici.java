@@ -5,6 +5,8 @@ import java.util.Date;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,36 +17,47 @@ import lombok.NoArgsConstructor;
 @Document
 public class StatiClinici {
 	
+	@JsonProperty("data_inizio_sintomi")
 	@Field
-	private Date data_inizio_sintomi;
+	private Date dataInizioSintomi;
 	
+	@JsonProperty("casi_totali")
 	@Field
-	private Integer casi_totali;
+	private Integer casiTotali;
 	
+	@JsonProperty("nessuno_stato_clinico")
 	@Field
-	private Integer nessuno_stato_clinico;
+	private Integer nessunoStatoClinico;
 	
+	@JsonProperty("solo_st_guarito")
 	@Field
-	private Integer solo_st_guarito;
+	private Integer soloStGuarito;
 	
+	@JsonProperty("solo_st_deceduto")
 	@Field
-	private Integer solo_st_deceduto;
+	private Integer soloStDeceduto;
 	
+	@JsonProperty("solo_st_asintomatico")
 	@Field
-	private Integer solo_st_asintomatico;
+	private Integer soloStAsintomatico;
 	
+	@JsonProperty("solo_st_lieve_pau_severo")
 	@Field
-	private Integer solo_st_lieve_pau_severo;
+	private Integer soloStLievePauSevero;
 	
+	@JsonProperty("st_lieve_pau_severo_grave_g")
 	@Field
-	private Integer st_lieve_pau_severo_grave_g;
+	private Integer stLievePauSeveroGraveG;
 	
+	@JsonProperty("st_lieve_pau_severo_grave_d")
 	@Field
-	private Integer st_lieve_pau_severo_grave_d;
+	private Integer stLievePauSeveroGraveD;
 	
+	@JsonProperty("st_asintomatico_g")
 	@Field
-	private Integer st_asintomatico_g;
+	private Integer stAsintomaticoG;
 	
+	@JsonProperty("st_asintomatico_d")
 	@Field
-	private Integer st_asintomatico_d;
+	private Integer stAsintomaticoD;
 }

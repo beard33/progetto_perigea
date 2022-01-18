@@ -15,5 +15,5 @@ public interface StatiCliniciRepository extends MongoRepository<StatiClinici, St
 //	restituisce numero di oggetti spazzati
 //	Long deleteByDataInizioSintomi(Date data);
 	
-	Boolean existsByData_inizio_sintomi(Date data);
+	Boolean existsByDataInizioSintomi(Date data);
 }

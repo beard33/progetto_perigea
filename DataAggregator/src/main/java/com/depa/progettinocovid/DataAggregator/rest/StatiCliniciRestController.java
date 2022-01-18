@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,9 @@ public class StatiCliniciRestController {
 	StatiCliniciAggregationService aggregator;
 	
 	@GetMapping(path = "stati_clinici/{field}")
-	public ResponseEntity<Response<Document>> totSingola (@PathVariable String field, @RequestParam Date inizio, @RequestParam Date fine) {
+	public ResponseEntity<Response<Document>> totSingola (@PathVariable String field,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date inizio,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fine) {
 		Document body = aggregator.sommaFiltra(field, inizio, fine);
 		
 		Response<Document> res = successResponse(String.format(

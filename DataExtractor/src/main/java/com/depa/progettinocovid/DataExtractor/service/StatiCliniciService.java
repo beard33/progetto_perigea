@@ -27,6 +27,6 @@ public class StatiCliniciService implements GenericService {
 
 	@Override
 	public void pubblicaDati() {
-		lista.forEach(e->service.send(e));
+		lista.forEach(e->service.sendStatiClinici(e));
 	}
 }

@@ -24,6 +24,8 @@ public class StatiCliniciRestClient {
 	public List<StatiCliniciDto> prendiDati() {
 		List<StatiClinici> statiCliniciData = Arrays.asList(restTemplate.getForObject(
 				endpoint, StatiClinici[].class));
+		
+		System.out.println(StatiCliniciMapper.INSTANCE.mapToDto(statiCliniciData.get(0)));
 		return StatiCliniciMapper.INSTANCE.mapToDtoList(statiCliniciData);
 	}
 

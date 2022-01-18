@@ -23,7 +23,7 @@ public class KafkaConfiguration {
 
 	@Bean
 	public KafkaProducer<String, StatiCliniciDto> statiCliniciProducer () {
-		return new KafkaProducer<>(getSomministrazioniProducerProps());
+		return new KafkaProducer<>(getStatiCliniciProducerProps());
 	}
 
 	public Properties getSomministrazioniProducerProps() {

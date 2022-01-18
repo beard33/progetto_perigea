@@ -26,6 +26,6 @@ public class StatiCliniciService {
 	}
 	
 	public boolean dateExists(Date date) {
-		return repository.existsByData_inizio_sintomi(date);
+		return repository.existsByDataInizioSintomi(date);
 	}
 }
