@@ -5,8 +5,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.depa.progettinocovid.DataAggregator.mapper.ConteggioMapper;
-import com.depa.progettinocovid.DataAggregator.models.ConteggioDto;
+import com.depa.progettinocovid.DataAggregator.mapper.StatiCliniciMapper;
+import com.depa.progettinocovid.DataAggregator.models.StatiCliniciDto;
 import com.depa.progettinocovid.DataAggregator.repository.StatiCliniciRepository;
 
 /** servizio per interagire col repository Mongo dei conteggio. contiene anche metodi per decorare il conteggio di sigla e timestamp
@@ -17,15 +17,15 @@ public class StatiCliniciService {
 	@Autowired
 	private StatiCliniciRepository repository;
 	
-	public void save(ConteggioDto p) {
-		repository.save(ConteggioMapper.INSTANCE.mapToEntity(p));
+	public void save(StatiCliniciDto p) {
+		repository.save(StatiCliniciMapper.INSTANCE.mapToEntity(p));
 	}
 	
 	public void deleteAll() {
 		repository.deleteAll();
 	}
 	
-	public void deleteIfPresent(Date data) {
-		repository.deleteByDataInizioSintomi(data);
+	public boolean dateExists(Date date) {
+		return repository.existsByData_inizio_sintomi(date);
 	}
 }

@@ -17,4 +17,6 @@ public class Processo {
 	@Field 
 	private Date fine;
 	
+	@Field
+	private String tipo;
 }

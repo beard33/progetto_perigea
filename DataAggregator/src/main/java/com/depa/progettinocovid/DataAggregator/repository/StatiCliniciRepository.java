@@ -5,13 +5,15 @@ import java.util.Date;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.depa.progettinocovid.DataAggregator.models.Conteggio;
+import com.depa.progettinocovid.DataAggregator.models.StatiClinici;
 
 @Repository
-public interface StatiCliniciRepository extends MongoRepository<Conteggio, String> {
+public interface StatiCliniciRepository extends MongoRepository<StatiClinici, String> {
 	
-	<S extends Conteggio> S save(S entity);
+	<S extends StatiClinici> S save(S entity);
 	
 //	restituisce numero di oggetti spazzati
-	Long deleteByDataInizioSintomi(Date data);
+//	Long deleteByDataInizioSintomi(Date data);
+	
+	Boolean existsByData_inizio_sintomi(Date data);
 }

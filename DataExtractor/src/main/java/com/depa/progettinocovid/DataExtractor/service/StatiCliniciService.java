@@ -29,5 +29,4 @@ public class StatiCliniciService implements GenericService {
 	public void pubblicaDati() {
 		lista.forEach(e->service.send(e));
 	}
-
 }

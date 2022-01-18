@@ -11,5 +11,5 @@ public class ProcessoDto {
 
 	private Date inizio;
 	private Date fine;
-	
+	private String tipo;
 }
