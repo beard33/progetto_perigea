@@ -2,8 +2,9 @@ package com.depa.progettinocovid.DataExtractor.serialization;
 
 import java.util.Map;
 
-import com.depa.progettinocovid.DataExtractor.model.StatiCliniciDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import commons.model.StatiCliniciDto;
 
 public class StatiCliniciSerializer implements Serializer<StatiCliniciDto>{
 

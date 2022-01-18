@@ -1,4 +1,4 @@
-package com.depa.progettinocovid.DataExtractor.model;
+package commons.model;
 
 import java.util.Date;
 
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document
-public class Conteggio {
+public class Somministrazione {
 	
 	@JsonProperty("codistat_comune_dom")
 	@Field
@@ -42,4 +42,5 @@ public class Conteggio {
 	@JsonProperty("tot_dose2")
 	@Field
 	private int dose2;
+	
 }

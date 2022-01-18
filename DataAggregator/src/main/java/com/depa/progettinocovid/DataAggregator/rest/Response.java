@@ -1,9 +1,10 @@
 package com.depa.progettinocovid.DataAggregator.rest;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import lombok.Builder;
 import lombok.Data;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 /** wrapper da restituire dai controller contiene status code, timestamp, descrizione insieme a body tipizzabile
  */

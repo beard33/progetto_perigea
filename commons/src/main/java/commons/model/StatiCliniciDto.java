@@ -1,4 +1,4 @@
-package com.depa.progettinocovid.DataExtractor.model;
+package commons.model;
 
 import java.util.Date;
 

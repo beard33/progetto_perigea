@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.depa.progettinocovid.DataAggregator.exceptions.ProvinciaNotFoundException;
-import com.depa.progettinocovid.DataAggregator.service.ConteggioAggregationService;
-import com.depa.progettinocovid.DataAggregator.service.ConteggioAggregationService.Capo;
-import com.depa.progettinocovid.DataAggregator.service.ConteggioService;
+import com.depa.progettinocovid.DataAggregator.service.SomministrazioneAggregationService;
+import com.depa.progettinocovid.DataAggregator.service.SomministrazioneAggregationService.Capo;
+import com.depa.progettinocovid.DataAggregator.service.SomministrazioneService;
 
 /** espone vari endpoint che servono dati aggregati sulle somministrazioni avvenute in Lombardia
  * */
 @RestController
 //@RequestMapping("/dosi")
-public class VacciniRestController {
+public class SomministrazioniRestController {
 	
 	@Autowired
-	private ConteggioAggregationService aggregator;
+	private SomministrazioneAggregationService aggregator;
 	
 	@Autowired
-	private ConteggioService service;
+	private SomministrazioneService service;
 	
 	// Restituire il numero totale della regione lombardia dei vaccinati con singola dose
 	@GetMapping(path = "tot_singola")

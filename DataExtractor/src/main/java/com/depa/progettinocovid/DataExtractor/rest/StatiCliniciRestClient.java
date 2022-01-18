@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.depa.progettinocovid.DataExtractor.mapper.StatiCliniciMapper;
-import com.depa.progettinocovid.DataExtractor.model.StatiClinici;
-import com.depa.progettinocovid.DataExtractor.model.StatiCliniciDto;
+import commons.mapper.StatiCliniciMapper;
+import commons.model.StatiClinici;
+import commons.model.StatiCliniciDto;
 
 @Component
 public class StatiCliniciRestClient {

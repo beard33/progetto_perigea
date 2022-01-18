@@ -6,8 +6,8 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.depa.progettinocovid.DataExtractor.model.ConteggioDto;
-import com.depa.progettinocovid.DataExtractor.model.StatiCliniciDto;
+import commons.model.SomministrazioneDto;
+import commons.model.StatiCliniciDto;
 
 
 @Configuration
@@ -17,7 +17,7 @@ public class KafkaConfiguration {
 	public static String BROKERS = "localhost:9092";
 	
 	@Bean
-	public KafkaProducer<String, ConteggioDto> somministrazioniProducer () {
+	public KafkaProducer<String, SomministrazioneDto> somministrazioniProducer () {
 		return new KafkaProducer<>(getSomministrazioniProducerProps());
 	}
 
@@ -32,7 +32,7 @@ public class KafkaConfiguration {
 		props.put("acks", "all");
 		props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 		props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-		props.put("value.serializer", "com.depa.progettinocovid.DataExtractor.serialization.ConteggioSerializer");
+		props.put("value.serializer", "com.depa.progettinocovid.DataExtractor.serialization.SomministrazioneSerializer");
 		return props;
 	}
 

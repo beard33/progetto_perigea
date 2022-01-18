@@ -5,10 +5,11 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
-import com.depa.progettinocovid.DataAggregator.models.ConteggioDto;
-import com.depa.progettinocovid.DataAggregator.models.StatiCliniciDto;
-import com.depa.progettinocovid.DataAggregator.serialization.ConteggioDeserializer;
+import com.depa.progettinocovid.DataAggregator.serialization.SomministrazioneDeserializer;
 import com.depa.progettinocovid.DataAggregator.serialization.StatiCliniciDeserializer;
+
+import commons.model.SomministrazioneDto;
+import commons.model.StatiCliniciDto;
 
 /** questo servizio contiene il metodo {@link send(ConteggioDto c)} per mandare un messaggio al Kafka cluster
  * e il metodo {@link inoltra(String cString)} che è il consumer dei messaggi e salva i dati nel repo
@@ -17,13 +18,13 @@ import com.depa.progettinocovid.DataAggregator.serialization.StatiCliniciDeseria
 public class KafkaService {
 	
 	@Autowired
-	private ConteggioService conteggioService;
+	private SomministrazioneService conteggioService;
 	
 	@Autowired
 	private StatiCliniciService statiCliniciService;
 	
 	@Autowired
-	private ConteggioDeserializer conteggioDeserializer;
+	private SomministrazioneDeserializer conteggioDeserializer;
 	
 	@Autowired
 	private StatiCliniciDeserializer statiCliniciDeserializer;
@@ -31,7 +32,7 @@ public class KafkaService {
 //	TODO farlo serializzare a kafka
 	@KafkaListener(topics = {"${kafka.topic_somministrazioni}"}, groupId = "test-consumer-group")
 	public void inoltraSomministrazioni (@Payload String cString) {
-		ConteggioDto c = conteggioDeserializer.deserialize(cString.getBytes());
+		SomministrazioneDto c = conteggioDeserializer.deserialize(cString.getBytes());
 		
 		conteggioService.deleteIfPresent(c.getCodice());
 		conteggioService.save(c);

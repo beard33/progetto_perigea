@@ -1,12 +1,12 @@
-package com.depa.progettinocovid.DataAggregator.mapper;
+package commons.mapper;
 
 import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import com.depa.progettinocovid.DataAggregator.models.StatiClinici;
-import com.depa.progettinocovid.DataAggregator.models.StatiCliniciDto;
+import commons.model.StatiClinici;
+import commons.model.StatiCliniciDto;
 
 @Mapper(componentModel = "spring")
 public interface StatiCliniciMapper {

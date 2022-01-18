@@ -6,16 +6,17 @@ package com.depa.progettinocovid.DataExtractor.serialization;
  */
 import java.util.Map;
 
-import com.depa.progettinocovid.DataExtractor.model.ConteggioDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ConteggioSerializer implements Serializer<ConteggioDto> {
+import commons.model.SomministrazioneDto;
+
+public class SomministrazioneSerializer implements Serializer<SomministrazioneDto> {
 
 	@Override
 	public void configure(Map<String, ?> map, boolean b) {}
 	
 	@Override
-	public byte[] serialize(ConteggioDto c) {
+	public byte[] serialize(SomministrazioneDto c) {
 		byte[] retVal = null;
 	    ObjectMapper objectMapper = new ObjectMapper();
 	    try {
@@ -30,7 +31,7 @@ public class ConteggioSerializer implements Serializer<ConteggioDto> {
 	public void close() {}
 
 	@Override
-	public byte[] serialize(String topic, ConteggioDto data) {
+	public byte[] serialize(String topic, SomministrazioneDto data) {
 		return serialize(data);
 	}
 }

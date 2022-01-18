@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 /** questo servizio contiene metodi generalizzati per aggregare in vari modi i dati sui conteggi
  * */
 @Service
-public class ConteggioAggregationService {
+public class SomministrazioneAggregationService {
 	
 	@Autowired
 	private MongoTemplate template;

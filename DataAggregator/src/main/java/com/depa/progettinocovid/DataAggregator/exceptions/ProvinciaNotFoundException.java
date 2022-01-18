@@ -1,7 +1,7 @@
 package com.depa.progettinocovid.DataAggregator.exceptions;
 /**
  * Eccezione custom per la gestione di un 404 not found relativo alla provincia
- * nel {@link com.depa.progettinocovid.rest.VacciniRestController}
+ * nel {@link com.depa.progettinocovid.SomministrazioniRestController.VacciniRestController}
  *
  */
 

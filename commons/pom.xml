@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.depa.progettinocovid</groupId>
-	<artifactId>DataAggregator</artifactId>
+	<artifactId>commons</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>DataAggregator</name>
-	<description>progettino covid aggregator</description>
+	<name>commons</name>
+	<description>progettino covid commons</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -21,29 +21,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		
 		<dependency>
@@ -57,29 +39,10 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>1.3.1.Final</version>
 		</dependency>
-		
 		<dependency>
-	        <groupId>com.depa.progettinocovid</groupId>
-	        <artifactId>commons</artifactId>
-	        <version>0.0.1-SNAPSHOT</version>
-	    </dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

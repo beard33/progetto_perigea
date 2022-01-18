@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.depa.progettinocovid.DataAggregator.models.StatiClinici;
+import commons.model.StatiClinici;
 
 @Repository
 public interface StatiCliniciRepository extends MongoRepository<StatiClinici, String> {

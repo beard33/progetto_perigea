@@ -4,8 +4,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.depa.progettinocovid.DataAggregator.models.StatiCliniciDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import commons.model.StatiCliniciDto;
 
 @Component
 public class StatiCliniciDeserializer implements Deserializer<StatiCliniciDto> {

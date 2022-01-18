@@ -1,4 +1,4 @@
-package com.depa.progettinocovid.DataAggregator.models;
+package commons.model;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ConteggioDto {
+public class SomministrazioneDto {
 	
 	private String codice;
 	private String comune;

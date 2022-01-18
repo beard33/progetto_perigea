@@ -27,7 +27,7 @@ public class EstrazioneRestController {
 	@GetMapping(path = "/estrai/{tema}")
 	public ResponseEntity<Response<Object>> estrai (@PathVariable String tema){
 		
-		if (tema.equalsIgnoreCase("stati-clinici") || tema.equalsIgnoreCase("somministrazioni"))
+		if (!(tema.equalsIgnoreCase("stati-clinici") || tema.equalsIgnoreCase("somministrazioni")))
 			throw new BadTemaRequestException();
 		
 		Processo processo = new Processo();
@@ -39,6 +39,7 @@ public class EstrazioneRestController {
 		processo.setFine(new Date());
 		
 		processoService.save(processo);
+		
 		Response<Object> res = Response.<Object>builder()
 				.type(Response.Type.SUCCESS)
 				.code(HttpStatus.OK.value())

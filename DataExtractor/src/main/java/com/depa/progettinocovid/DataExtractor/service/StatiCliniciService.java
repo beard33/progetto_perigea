@@ -6,8 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.depa.progettinocovid.DataExtractor.model.StatiCliniciDto;
 import com.depa.progettinocovid.DataExtractor.rest.StatiCliniciRestClient;
+
+import commons.model.StatiCliniciDto;
 
 @Service
 public class StatiCliniciService implements GenericService {

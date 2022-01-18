@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.depa.progettinocovid.DataExtractor.model.ConteggioDto;
-import com.depa.progettinocovid.DataExtractor.model.StatiCliniciDto;
+import commons.model.SomministrazioneDto;
+import commons.model.StatiCliniciDto;
 
 @Service
 public class KafkaService {
 	
 	@Autowired
-	private KafkaProducer<String, ConteggioDto> somministrazioniProducer;
+	private KafkaProducer<String, SomministrazioneDto> somministrazioniProducer;
 	
 	@Autowired
 	private KafkaProducer<String, StatiCliniciDto> statiCliniciProducer;
@@ -32,9 +32,9 @@ public class KafkaService {
 		statiCliniciProducer.close();
 	}
 	
-	public void send(ConteggioDto c) {
+	public void send(SomministrazioneDto c) {
 		try {
-			somministrazioniProducer.send(new ProducerRecord<String, ConteggioDto>(somministrazioniTopic, c));
+			somministrazioniProducer.send(new ProducerRecord<String, SomministrazioneDto>(somministrazioniTopic, c));
 		} catch (Exception e) {
 		   e.printStackTrace();
 		}

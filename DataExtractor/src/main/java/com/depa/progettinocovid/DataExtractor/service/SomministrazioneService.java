@@ -5,22 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.depa.progettinocovid.DataExtractor.model.ConteggioDto;
-import com.depa.progettinocovid.DataExtractor.rest.VacciniRestClient;
+import com.depa.progettinocovid.DataExtractor.rest.SomministrazioniRestClient;
+
+import commons.model.SomministrazioneDto;
 
 @Service
-public class SomministrazioniService implements GenericService {
+public class SomministrazioneService implements GenericService {
 	
-	private List<ConteggioDto> lista;
+	private List<SomministrazioneDto> lista;
 	
 	@Autowired
-	VacciniRestClient client;
+	SomministrazioniRestClient client;
 	
 	@Autowired
 	KafkaService service;
 	
 	@Autowired
-	private ConteggioService conteggioService;
+	private SomministrazioneDecorator conteggioService;
 	
 	@Override
 	public void prendiDati() {
@@ -35,7 +36,7 @@ public class SomministrazioniService implements GenericService {
 			});
 	}
 	
-	private void decorate(ConteggioDto e) {
+	private void decorate(SomministrazioneDto e) {
 		conteggioService.addSigla(e);
 		conteggioService.addDate(e);
 	}

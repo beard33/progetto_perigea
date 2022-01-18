@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.depa.progettinocovid.DataExtractor.service.GenericService;
-import com.depa.progettinocovid.DataExtractor.service.SomministrazioniService;
+import com.depa.progettinocovid.DataExtractor.service.SomministrazioneService;
 import com.depa.progettinocovid.DataExtractor.service.StatiCliniciService;
 
 @Component
 public class ServiceFactory implements AbstractFactory {
 	
 	@Autowired
-	private SomministrazioniService somministrazioniService;
+	private SomministrazioneService somministrazioniService;
 	
 	@Autowired
 	private StatiCliniciService statiCliniciService;
