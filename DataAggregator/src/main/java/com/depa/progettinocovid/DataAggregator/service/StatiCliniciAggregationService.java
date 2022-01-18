@@ -17,7 +17,7 @@ public class StatiCliniciAggregationService {
 	
 	public Document sommaFiltra(String field, Date inizio, Date fine) {
 		Aggregation aggregation = Aggregation.newAggregation(
-				Aggregation.match(Criteria.where("dataInizioSintomi").gt(inizio).lt(fine)),
+				Aggregation.match(Criteria.where("dataInizioSintomi").gt(inizio).lte(fine)),
 				Aggregation.group().sum(field).as(field + "_tot"));
 		return template.aggregate(aggregation, "statiClinici", Object.class).getRawResults();
 	}
