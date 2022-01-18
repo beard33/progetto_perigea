@@ -42,8 +42,7 @@ public class KafkaConfiguration {
 		props.put("acks", "all");
 		props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 		props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-		//TODO cambiare!!!
-		props.put("value.serializer", "com.depa.progettinocovid.DataExtractor.serialization.ConteggioSerializer");
+		props.put("value.serializer", "com.depa.progettinocovid.DataExtractor.serialization.StatiCliniciSerializer");
 		return props;
 	}
 	
