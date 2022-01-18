@@ -11,7 +11,7 @@ import com.depa.progettinocovid.DataExtractor.rest.Response;
 @ControllerAdvice
 public class ControllerAdvisor {
 
-	@ExceptionHandler({DateOutOfRangeException.class,MethodArgumentTypeMismatchException.class})
+	@ExceptionHandler({DateOutOfRangeException.class,MethodArgumentTypeMismatchException.class,BadTemaRequestException.class})
 	public ResponseEntity<Response<Object>> DateOutOfRange(DateOutOfRangeException ex) {
 		Response<Object> res = Response
 				.builder()
