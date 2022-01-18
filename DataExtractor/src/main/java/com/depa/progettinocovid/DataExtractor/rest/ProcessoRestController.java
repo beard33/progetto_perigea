@@ -41,8 +41,9 @@ public class ProcessoRestController {
 	public ResponseEntity<Response<List<ProcessoDto>>> listaProcessi (
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date giorno) throws ParseException {
 		
-		if (today.before(giorno))
+		if (today.before(giorno)) {
 			throw new DateOutOfRangeException(giorno);
+		}
 		
 		List<ProcessoDto> lista = processoService.findByDate(giorno);
 		Response<List<ProcessoDto>> res = successResponse("Tutti i processi registrati il " + giorno, lista);

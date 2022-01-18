@@ -21,12 +21,9 @@ public class VacciniRestClient {
 	@Value("${endpoint_vaccini}")
 	private String endpoint;
 	
-	public List<ConteggioDto> getVaccinationData(){
+	public List<ConteggioDto> prendiDati(){
 		List<Conteggio> vaccinationData = Arrays.asList(restTemplate.getForObject(
 				endpoint, Conteggio[].class));
 		return ConteggioMapper.INSTANCE.mapToDtoList(vaccinationData);
 	}
-
-	
-	
 }

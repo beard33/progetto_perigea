@@ -15,17 +15,22 @@ import com.depa.progettinocovid.DataAggregator.serialization.ConteggioDeserializ
 public class KafkaService {
 	
 	@Autowired
-	private ConteggioService service;
+	private ConteggioService conteggioService;
 	
 	@Autowired
 	private ConteggioDeserializer conteggioDeserializer;
 	
 //	TODO farlo serializzare a kafka
-	@KafkaListener(topics = {"${topic}"}, groupId = "test-consumer-group")
-	public void inoltra (@Payload String cString) {
+	@KafkaListener(topics = {"${kafka.topic_somministrazioni}"}, groupId = "test-consumer-group")
+	public void inoltraSomministrazioni (@Payload String cString) {
 		ConteggioDto c = conteggioDeserializer.deserialize(cString.getBytes());
 		
-		service.deleteIfPresent(c.getCodice());
-		service.save(c);
+		conteggioService.deleteIfPresent(c.getCodice());
+		conteggioService.save(c);
+	}
+	
+//	TODO farlo serializzare a kafka
+	@KafkaListener(topics = {"${kafka.topic_staticlinici}"}, groupId = "test-consumer-group")
+	public void inoltraStatiClinici (@Payload String cString) {
 	}
 }

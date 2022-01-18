@@ -7,23 +7,42 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.depa.progettinocovid.DataExtractor.model.ConteggioDto;
+import com.depa.progettinocovid.DataExtractor.model.StatiCliniciDto;
 
 @Service
 public class KafkaService {
 	
 	@Autowired
-	private KafkaProducer<String, ConteggioDto> kafkaProducer;
+	private KafkaProducer<String, ConteggioDto> somministrazioniProducer;
 	
-	@Value("${kafka.topic}")
-	private String topic;
+	@Autowired
+	private KafkaProducer<String, StatiCliniciDto> statiCliniciProducer;
 	
-	public void closeKafka() {
-		kafkaProducer.close();
+	@Value("${kafka.topic_somministrazioni}")
+	private String somministrazioniTopic;
+	
+	@Value("${kafka.topic_staticlinici}")
+	private String staticliniciTopic;
+	
+	public void closeSomministrazioni() {
+		somministrazioniProducer.close();
+	}
+	
+	public void closeStatiClinici() {
+		statiCliniciProducer.close();
 	}
 	
 	public void send(ConteggioDto c) {
 		try {
-		   kafkaProducer.send(new ProducerRecord<String, ConteggioDto>(topic, c));
+			somministrazioniProducer.send(new ProducerRecord<String, ConteggioDto>(somministrazioniTopic, c));
+		} catch (Exception e) {
+		   e.printStackTrace();
+		}
+	}
+	
+	public void send(StatiCliniciDto c) {
+		try {
+			statiCliniciProducer.send(new ProducerRecord<String, StatiCliniciDto>(staticliniciTopic, c));
 		} catch (Exception e) {
 		   e.printStackTrace();
 		}
