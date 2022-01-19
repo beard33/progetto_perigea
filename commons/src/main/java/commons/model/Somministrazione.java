@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document
+@Document(collection = "somministrazioni")
 public class Somministrazione {
 	
 	@JsonProperty("codistat_comune_dom")
