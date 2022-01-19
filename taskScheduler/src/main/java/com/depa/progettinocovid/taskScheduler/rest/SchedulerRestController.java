@@ -1,5 +1,6 @@
 package com.depa.progettinocovid.taskScheduler.rest;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import org.quartz.SchedulerException;
@@ -24,10 +25,10 @@ public class SchedulerRestController {
 	@GetMapping(path = "schedule/{tema}")
 	public ResponseEntity<SchedulerResponse> schedule(@PathVariable String tema, 
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date data) {
+		Date dataOk = Date.from(data.toInstant().plus(1, ChronoUnit.HOURS));
+		String id = service.scheduleEstrazione(tema, dataOk);
 		
-		String id = service.scheduleEstrazione(tema, data);
-		
-		return new ResponseEntity<>(new SchedulerResponse(id, data, tema), 
+		return new ResponseEntity<>(new SchedulerResponse(id, dataOk, tema), 
 				HttpStatus.OK);
 	}
 	

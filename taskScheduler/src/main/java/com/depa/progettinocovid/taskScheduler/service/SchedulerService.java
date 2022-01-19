@@ -66,7 +66,7 @@ public class SchedulerService {
 				.forJob(detail)
 				.withIdentity(id, detail.getKey().getGroup())
 				.withDescription(detail.getDescription())
-				.startAt(dataEsecuzione)
+				.startAt(Date.from(dataEsecuzione.toInstant()))
 				.build();
     }
 	
