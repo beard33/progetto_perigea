@@ -22,11 +22,15 @@ public class SchedulerRestController {
 	// intervallo numero di giorni? ore? boh
 	@GetMapping(path = "schedule/{tema}")
 	public ResponseEntity<String> schedule(@PathVariable String tema, @RequestParam String cron) {
+		
 		CronTriggerFactoryBean triggerFactoryBean = new CronTriggerFactoryBean();
 		triggerFactoryBean.setCronExpression(cron);
 		CronTrigger trigger = triggerFactoryBean.getObject();
 		service.scheduleRichiesta(tema, trigger);
-	public ResponseEntity<String> schedule(@PathVariable String tema, @RequestParam int intervallo) {
-		return new ResponseEntity<String>("success", HttpStatus.OK);
+		
+		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
+	
+	//@GetMapping(path = "delete/{}")
+	
 }
