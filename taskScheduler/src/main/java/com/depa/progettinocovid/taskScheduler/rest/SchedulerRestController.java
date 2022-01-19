@@ -2,6 +2,7 @@ package com.depa.progettinocovid.taskScheduler.rest;
 
 import java.util.Date;
 
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -21,14 +22,53 @@ public class SchedulerRestController {
 	
 	// intervallo numero di giorni? ore? boh
 	@GetMapping(path = "schedule/{tema}")
-	public ResponseEntity<String> schedule(@PathVariable String tema, 
-			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataEsecuzione) {
+	public ResponseEntity<SchedulerResponse> schedule(@PathVariable String tema, 
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date data) {
 		
-		String id = service.scheduleRichiesta(tema, dataEsecuzione);
+		String id = service.scheduleEstrazione(tema, data);
 		
-		return new ResponseEntity<>(id, HttpStatus.OK);
+		return new ResponseEntity<>(new SchedulerResponse(id, data, tema), 
+				HttpStatus.OK);
 	}
 	
-	//@GetMapping(path = "delete/{}")
+	@GetMapping(path = "delete/{tema}")
+	public ResponseEntity<String> delete(@PathVariable String tema, @RequestParam String id) throws SchedulerException{
+		return new ResponseEntity<>(service.deleteEstrazione(id, tema) ? "Deleted" : "Not found", HttpStatus.OK);
+	}
+	
+	@GetMapping(path = "reschedule/{tema}")
+	public ResponseEntity<SchedulerResponse> reschedule(@PathVariable String tema, 
+			@RequestParam String id, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date data) throws SchedulerException {
+		Date nuovaData = service.reschedule(data, id, tema);
+		if (nuovaData == null) {
+			return new ResponseEntity<>(new SchedulerResponse(null, null, null),
+					HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(new SchedulerResponse(id, nuovaData, tema),
+				HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
