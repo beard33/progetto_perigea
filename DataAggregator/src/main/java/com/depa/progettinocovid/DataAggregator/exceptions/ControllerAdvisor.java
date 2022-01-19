@@ -11,8 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.depa.progettinocovid.DataAggregator.rest.Response;
 import com.mongodb.MongoSocketException;
+
+import commons.rest.Response;
 
 // TODO era legato a Provincia senza motivo
 @ControllerAdvice

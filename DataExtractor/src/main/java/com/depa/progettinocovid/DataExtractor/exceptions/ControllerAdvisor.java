@@ -6,7 +6,7 @@ import org.springframework.messaging.handler.annotation.support.MethodArgumentTy
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.depa.progettinocovid.DataExtractor.rest.Response;
+import commons.rest.Response;
 
 @ControllerAdvice
 public class ControllerAdvisor {

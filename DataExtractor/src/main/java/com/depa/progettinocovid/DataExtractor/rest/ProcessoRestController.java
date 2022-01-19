@@ -16,6 +16,8 @@ import com.depa.progettinocovid.DataExtractor.exceptions.DateOutOfRangeException
 import com.depa.progettinocovid.DataExtractor.model.ProcessoDto;
 import com.depa.progettinocovid.DataExtractor.service.ProcessoService;
 
+import commons.rest.Response;
+
 /** espone due endpoint /processi e /processi?giorno=yyyy-MM-dd per visualizzare tutti i processi oppure solo quelli iniziati in un dato giorno
  * */
 @RestController

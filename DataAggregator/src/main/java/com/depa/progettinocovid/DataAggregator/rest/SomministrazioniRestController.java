@@ -13,6 +13,8 @@ import com.depa.progettinocovid.DataAggregator.service.SomministrazioneAggregati
 import com.depa.progettinocovid.DataAggregator.service.SomministrazioneAggregationService.Capo;
 import com.depa.progettinocovid.DataAggregator.service.SomministrazioneService;
 
+import commons.rest.Response;
+
 /** espone vari endpoint che servono dati aggregati sulle somministrazioni avvenute in Lombardia
  * */
 @RestController

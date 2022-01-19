@@ -1,4 +1,4 @@
-package com.depa.progettinocovid.DataExtractor.rest;
+package commons.rest;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

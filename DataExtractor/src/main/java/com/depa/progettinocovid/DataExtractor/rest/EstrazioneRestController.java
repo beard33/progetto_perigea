@@ -15,15 +15,18 @@ import com.depa.progettinocovid.DataExtractor.model.Processo;
 import com.depa.progettinocovid.DataExtractor.service.GenericService;
 import com.depa.progettinocovid.DataExtractor.service.ProcessoService;
 
+import commons.rest.Response;
+
 @RestController
 public class EstrazioneRestController {
 	
 	@Autowired
-	ServiceFactory factory;
+	private ServiceFactory factory;
 	
 	@Autowired
-	ProcessoService processoService;
+	private ProcessoService processoService;
 	
+	// TODO ENUM
 	@GetMapping(path = "/estrai/{tema}")
 	public ResponseEntity<Response<Object>> estrai (@PathVariable String tema){
 		

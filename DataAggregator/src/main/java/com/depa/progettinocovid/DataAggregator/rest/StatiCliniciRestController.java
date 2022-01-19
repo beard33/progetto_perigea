@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.depa.progettinocovid.DataAggregator.service.StatiCliniciAggregationService;
 
+import commons.rest.Response;
+
 @RestController
 public class StatiCliniciRestController {
 	
 	@Autowired
-	StatiCliniciAggregationService aggregator;
+	private StatiCliniciAggregationService aggregator;
 	
 	@GetMapping(path = "stati_clinici/{field}")
 	public ResponseEntity<Response<Document>> totSingola (@PathVariable String field,

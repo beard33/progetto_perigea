@@ -16,6 +16,7 @@ public class ServiceFactory implements AbstractFactory {
 	@Autowired
 	private StatiCliniciService statiCliniciService;
 	
+	// TODO ENUM
 	public GenericService getService(String type) {
 		System.out.println(type);
 		if (type.equals("somministrazioni")) {
