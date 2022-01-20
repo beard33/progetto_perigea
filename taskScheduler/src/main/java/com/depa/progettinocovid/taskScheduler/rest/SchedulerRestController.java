@@ -1,7 +1,7 @@
 package com.depa.progettinocovid.taskScheduler.rest;
 
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,53 +23,43 @@ public class SchedulerRestController {
 	
 	// intervallo numero di giorni? ore? boh
 	@GetMapping(path = "schedule/{tema}")
-	public ResponseEntity<SchedulerResponse> schedule(@PathVariable String tema, 
+	public ResponseEntity<ScheduledInfo> schedule(@PathVariable String tema, 
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date data) {
-		Date dataOk = Date.from(data.toInstant().plus(1, ChronoUnit.HOURS));
-		String id = service.scheduleEstrazione(tema, dataOk);
 		
-		return new ResponseEntity<>(new SchedulerResponse(id, dataOk, tema), 
-				HttpStatus.OK);
+		return new ResponseEntity<>(service.scheduleEstrazione(tema, data), HttpStatus.OK);
+	}
+	
+	@GetMapping(path = "schedule_periodico/{tema}")
+	public ResponseEntity<ScheduledInfo> schedulePeriodico(@PathVariable String tema,
+			@RequestParam String cron) {
+		
+		return new ResponseEntity<>(service.scheduleEstrazioneCron(tema, cron), HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "delete/{tema}")
 	public ResponseEntity<String> delete(@PathVariable String tema, @RequestParam String id) throws SchedulerException{
+		
 		return new ResponseEntity<>(service.deleteEstrazione(id, tema) ? "Deleted" : "Not found", HttpStatus.OK);
 	}
 	
-	@GetMapping(path = "reschedule/{tema}")
-	public ResponseEntity<SchedulerResponse> reschedule(@PathVariable String tema, 
+	@GetMapping(path = "reschedule/{tema}", params = {"id", "data"})
+	public ResponseEntity<ScheduledInfo> reschedule(@PathVariable String tema, 
 			@RequestParam String id, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date data) throws SchedulerException {
-		Date nuovaData = service.reschedule(data, id, tema);
-		if (nuovaData == null) {
-			return new ResponseEntity<>(new SchedulerResponse(null, null, null),
-					HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(new SchedulerResponse(id, nuovaData, tema),
-				HttpStatus.OK);
+		
+		return new ResponseEntity<>(service.reschedule(data, id, tema), HttpStatus.OK);
 	}
 	
+	@GetMapping(path = "reschedule/{tema}", params = {"id", "cron"})
+	public ResponseEntity<ScheduledInfo> reschedule(@PathVariable String tema, 
+			@RequestParam String id, @RequestParam String cron) throws SchedulerException {
+		
+		return new ResponseEntity<>(service.reschedule(cron, id, tema),	HttpStatus.OK);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@GetMapping(path = "tutti/")
+	public ResponseEntity<List<ScheduledInfo>> tutti(@RequestParam String tema){
+		List<ScheduledInfo> tutti = service.getAll();
+		
+		return new ResponseEntity<>(tutti, HttpStatus.OK);
+	}
 }
