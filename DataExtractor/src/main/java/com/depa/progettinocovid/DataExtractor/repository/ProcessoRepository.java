@@ -12,7 +12,5 @@ import com.depa.progettinocovid.DataExtractor.model.Processo;
 public interface ProcessoRepository extends MongoRepository<Processo, String>{
 
 	<S extends Processo> S save(S entity);
-	
 	List<Processo> findByInizioBetween(Date inizio, Date fine);
-	
 }

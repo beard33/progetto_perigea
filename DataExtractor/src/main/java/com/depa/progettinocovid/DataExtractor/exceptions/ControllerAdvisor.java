@@ -11,7 +11,11 @@ import commons.rest.Response;
 @ControllerAdvice
 public class ControllerAdvisor {
 
-	@ExceptionHandler({DateOutOfRangeException.class,MethodArgumentTypeMismatchException.class,BadTemaRequestException.class})
+	@ExceptionHandler({
+		DateOutOfRangeException.class,
+		MethodArgumentTypeMismatchException.class,
+		BadTemaRequestException.class,
+		IllegalArgumentException.class})
 	public ResponseEntity<Response<Object>> DateOutOfRange(DateOutOfRangeException ex) {
 		Response<Object> res = Response
 				.builder()

@@ -15,6 +15,7 @@ import com.depa.progettinocovid.DataExtractor.model.Processo;
 import com.depa.progettinocovid.DataExtractor.service.GenericService;
 import com.depa.progettinocovid.DataExtractor.service.ProcessoService;
 
+import commons.model.TemaEnum;
 import commons.rest.Response;
 
 @RestController
@@ -30,13 +31,17 @@ public class EstrazioneRestController {
 	@GetMapping(path = "/estrai/{tema}")
 	public ResponseEntity<Response<Object>> estrai (@PathVariable String tema){
 		
-		if (!(tema.equalsIgnoreCase("stati-clinici") || tema.equalsIgnoreCase("somministrazioni")))
+		TemaEnum temaPassato;
+		try {
+			temaPassato = TemaEnum.valueOf(tema.toUpperCase());
+		} catch (IllegalArgumentException e) {
 			throw new BadTemaRequestException();
+		}
 		
 		Processo processo = new Processo();
 		processo.setTipo(tema);
 		processo.setInizio(new Date());
-		GenericService service = factory.getService(tema);
+		GenericService service = factory.getService(temaPassato);
 		service.prendiDati();
 		service.pubblicaDati();
 		processo.setFine(new Date());

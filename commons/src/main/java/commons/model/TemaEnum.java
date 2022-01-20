@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum TemaEnum {
 
 	SOMMINISTRAZIONI("somministrazioni"),
-	STATI_CLINICI("stati-clinici");
+	STATI_CLINICI("stati_clinici");
 
 	private String tema;
 	

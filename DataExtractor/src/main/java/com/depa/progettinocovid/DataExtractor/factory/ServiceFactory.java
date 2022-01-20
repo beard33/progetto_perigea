@@ -7,6 +7,8 @@ import com.depa.progettinocovid.DataExtractor.service.GenericService;
 import com.depa.progettinocovid.DataExtractor.service.SomministrazioneService;
 import com.depa.progettinocovid.DataExtractor.service.StatiCliniciService;
 
+import commons.model.TemaEnum;
+
 @Component
 public class ServiceFactory implements AbstractFactory {
 	
@@ -17,11 +19,11 @@ public class ServiceFactory implements AbstractFactory {
 	private StatiCliniciService statiCliniciService;
 	
 	// TODO ENUM
-	public GenericService getService(String type) {
+	public GenericService getService(TemaEnum type) {
 		System.out.println(type);
-		if (type.equals("somministrazioni")) {
+		if (type.equals(TemaEnum.SOMMINISTRAZIONI)) {
 			return somministrazioniService;
-		} else if (type.equals("stati-clinici")) {
+		} else if (type.equals(TemaEnum.STATI_CLINICI)) {
 			return statiCliniciService;
 		}
 		

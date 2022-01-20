@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import commons.model.SomministrazioneDto;
 
-
-
 @Service
 public class SomministrazioneDecorator {
 	
