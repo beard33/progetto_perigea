@@ -40,7 +40,13 @@ public class SchedulerService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		ScheduledInfo info = new ScheduledInfo(detail.getKey().getName(), dataEsecuzione, tema, Tipo.UNA_TANTUM.name(), null);
+
+		ScheduledInfo info = ScheduledInfo.builder()
+				.id(detail.getKey().getName())
+				.nextFireTime(dataEsecuzione)
+				.tema(tema)
+				.tipo(Tipo.UNA_TANTUM.name())
+				.build();
 		repositoryService.save(info);
 		return info;
 	}
@@ -54,7 +60,13 @@ public class SchedulerService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		ScheduledInfo info = new ScheduledInfo(detail.getKey().getName(), trigger.getNextFireTime(), tema, Tipo.PERIODICO.name(), cron);
+		
+		ScheduledInfo info = ScheduledInfo.builder()
+				.id(detail.getKey().getName())
+				.cron(cron)
+				.tema(tema)
+				.tipo(Tipo.PERIODICO.name())
+				.build();
 		repositoryService.save(info);
 		return info;
 	}
@@ -76,7 +88,13 @@ public class SchedulerService {
 		if (scheduler.rescheduleJob(triggerKey, trigger) == null) {
 			return new ScheduledInfo();
 		}
-		ScheduledInfo info = new ScheduledInfo(detail.getKey().getName(), nuovaData, tema, Tipo.UNA_TANTUM.name(), null);
+
+		ScheduledInfo info = ScheduledInfo.builder()
+				.id(detail.getKey().getName())
+				.nextFireTime(nuovaData)
+				.tema(tema)
+				.tipo(Tipo.UNA_TANTUM.name())
+				.build();
 		repositoryService.save(info);
 		return info;
 	}
@@ -92,8 +110,13 @@ public class SchedulerService {
 		if (scheduler.rescheduleJob(triggerKey, trigger) == null) {
 			return new ScheduledInfo();
 		}
-		
-		ScheduledInfo info = new ScheduledInfo(detail.getKey().getName(), trigger.getNextFireTime(), tema, Tipo.PERIODICO.name(), cron);
+
+		ScheduledInfo info = ScheduledInfo.builder()
+				.id(detail.getKey().getName())
+				.cron(cron)
+				.tema(tema)
+				.tipo(Tipo.PERIODICO.name())
+				.build();
 		repositoryService.save(info);
 		return info;
 	}
@@ -137,7 +160,6 @@ public class SchedulerService {
 	}
 	
     private JobDetail buildJobDetail(String tema) {
-    	
         return JobBuilder.newJob(tema == "somministrazioni" ? SomministrazioniJob.class : StatiCliniciJob.class)
                 .withIdentity(UUID.randomUUID().toString(), tema)
                 .withDescription("Job scheduler for " + tema)
