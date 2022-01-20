@@ -1,6 +1,5 @@
 package com.depa.progettinocovid.DataAggregator.rest;
 
-import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.depa.progettinocovid.DataAggregator.exceptions.ProvinciaNotFoundException;
+import com.depa.progettinocovid.DataAggregator.model.AggregationResult;
 import com.depa.progettinocovid.DataAggregator.service.SomministrazioneAggregationService;
 import com.depa.progettinocovid.DataAggregator.service.SomministrazioneAggregationService.Capo;
 import com.depa.progettinocovid.DataAggregator.service.SomministrazioneService;
@@ -36,85 +36,68 @@ public class SomministrazioniRestController {
 	@Autowired
 	private ExecutorService executorService;
 	
-	@Autowired
-	private List<Future<ResponseEntity<Response<Document>>>> futures;
-	
 	// Restituire il numero totale della regione lombardia dei vaccinati con singola dose
 	@GetMapping(path = "tot_singola")
-	public ResponseEntity<Response<Document>> totSingola () throws Exception {
+	public ResponseEntity<Response<AggregationResult>> totSingola () throws Exception {
 		
-		Callable<ResponseEntity<Response<Document>>> callable = () -> {
-			Document body = aggregator.somma("dose1");
-
-			Response<Document> res = successResponse("Totale una dose", body);
-			return new ResponseEntity<Response<Document>>(res, HttpStatus.OK);
+		Callable<ResponseEntity<Response<AggregationResult>>> callable = () -> {
+			Response<AggregationResult> res = successResponse("Totale una dose", aggregator.somma("dose1"));
+			return new ResponseEntity<Response<AggregationResult>>(res, HttpStatus.OK);
 		};
-		Future<ResponseEntity<Response<Document>>> future = executorService.submit(callable);
+		Future<ResponseEntity<Response<AggregationResult>>> future = executorService.submit(callable);
 		
-		futures.add(future);
-		ResponseEntity<Response<Document>> res = future.get(200, TimeUnit.MILLISECONDS);
-		futures.remove(future);
+		ResponseEntity<Response<AggregationResult>> res = future.get(200, TimeUnit.MILLISECONDS);
 		
 		return res;
 	}
 	
 	// Restituire il numero totale della regione lombardia dei vaccinati con doppia dose 
 	@GetMapping(path = "tot_doppia")
-	public ResponseEntity<Response<Document>> totDoppia () throws Exception {
+	public ResponseEntity<Response<AggregationResult>> totDoppia () throws Exception {
 		
-		Callable<ResponseEntity<Response<Document>>> callable = () -> {
-			Document body = aggregator.somma("dose2");
-			
-			Response<Document> res = successResponse("Totale due dosi", body);
-			return new ResponseEntity<Response<Document>>(res, HttpStatus.OK);
+		Callable<ResponseEntity<Response<AggregationResult>>> callable = () -> {
+			Response<AggregationResult> res = successResponse("Totale due dosi", aggregator.somma("dose2"));
+			return new ResponseEntity<Response<AggregationResult>>(res, HttpStatus.OK);
 		};
-		Future<ResponseEntity<Response<Document>>> future = executorService.submit(callable);
+		Future<ResponseEntity<Response<AggregationResult>>> future = executorService.submit(callable);
 		
-		futures.add(future);
-		ResponseEntity<Response<Document>> res = future.get(200, TimeUnit.MILLISECONDS);
-		futures.remove(future);
+		ResponseEntity<Response<AggregationResult>> res = future.get(200, TimeUnit.MILLISECONDS);
 		
 		return res;
 	}
 	
 	// Restituire il numero totale della regione lombardia dei vaccinati con singola dose per provincia
 	@GetMapping(path = "tot_singola/prov")
-	public ResponseEntity<Response<Document>> totSingolaProvincia (@RequestParam String sigla) throws Exception {
+	public ResponseEntity<Response<AggregationResult>> totSingolaProvincia (@RequestParam String sigla) throws Exception {
 		
-		Callable<ResponseEntity<Response<Document>>> callable = () -> {
+		Callable<ResponseEntity<Response<AggregationResult>>> callable = () -> {
 			if (!service.siglaEsiste(sigla))
 				throw new ProvinciaNotFoundException(sigla);
 			
-			Document body = aggregator.sommaFiltra("dose1", sigla);
-			Response<Document> res = successResponse("Totale singola dose " + sigla , body);
-			return new ResponseEntity<Response<Document>>(res, HttpStatus.OK);
+			Response<AggregationResult> res = successResponse("Totale singola dose " + sigla , aggregator.sommaFiltra("dose1", sigla));
+			return new ResponseEntity<Response<AggregationResult>>(res, HttpStatus.OK);
 		};
-		Future<ResponseEntity<Response<Document>>> future = executorService.submit(callable);
+		Future<ResponseEntity<Response<AggregationResult>>> future = executorService.submit(callable);
 		
-		futures.add(future);
-		ResponseEntity<Response<Document>> res = future.get(200, TimeUnit.MILLISECONDS);
-		futures.remove(future);
+		ResponseEntity<Response<AggregationResult>> res = future.get(200, TimeUnit.MILLISECONDS);
 		
 		return res;
 	}
 	
 	// Restituire il numero totale della regione lombardia dei vaccinati con doppia dose per provincia
 	@GetMapping(path = "tot_doppia/prov")
-	public ResponseEntity<Response<Document>> totDoppiaProvincia (@RequestParam String sigla) throws Exception {
+	public ResponseEntity<Response<AggregationResult>> totDoppiaProvincia (@RequestParam String sigla) throws Exception {
 		
-		Callable<ResponseEntity<Response<Document>>> callable = () -> {
+		Callable<ResponseEntity<Response<AggregationResult>>> callable = () -> {
 			if (!service.siglaEsiste(sigla))
 				throw new ProvinciaNotFoundException(sigla);
 			
-			Document body = aggregator.sommaFiltra("dose2", sigla);
-			Response<Document> res = successResponse("Totale doppia dose " + sigla, body);
-			return new ResponseEntity<Response<Document>>(res, HttpStatus.OK);
+			Response<AggregationResult> res = successResponse("Totale doppia dose " + sigla, aggregator.sommaFiltra("dose2", sigla));
+			return new ResponseEntity<Response<AggregationResult>>(res, HttpStatus.OK);
 		};
-		Future<ResponseEntity<Response<Document>>> future = executorService.submit(callable);
+		Future<ResponseEntity<Response<AggregationResult>>> future = executorService.submit(callable);
 		
-		futures.add(future);
-		ResponseEntity<Response<Document>> res = future.get(200, TimeUnit.MILLISECONDS);
-		futures.remove(future);
+		ResponseEntity<Response<AggregationResult>> res = future.get(200, TimeUnit.MILLISECONDS);
 		
 		return res;
 	}
@@ -131,9 +114,7 @@ public class SomministrazioniRestController {
 		};
 		Future<ResponseEntity<Response<Document>>> future = executorService.submit(callable);
 		
-		futures.add(future);
 		ResponseEntity<Response<Document>> res = future.get(200, TimeUnit.MILLISECONDS);
-		futures.remove(future);
 		
 		return res;
 	}
@@ -152,127 +133,111 @@ public class SomministrazioniRestController {
 		};
 		Future<ResponseEntity<Response<Document>>> future = executorService.submit(callable);
 		
-		futures.add(future);
 		ResponseEntity<Response<Document>> res = future.get(200, TimeUnit.MILLISECONDS);
-		futures.remove(future);
 		
 		return res;
 	}
 	
 	// Trovare il comune con più vaccinati in singola dose
 	@GetMapping(path = "comune_max_singola")
-	public ResponseEntity<Response<Document>> comuneMaxSingola () throws Exception {
+	public ResponseEntity<Response<AggregationResult>> comuneMaxSingola () throws Exception {
 		
-		Callable<ResponseEntity<Response<Document>>> callable = () -> {
-			Document body = aggregator.capoSomma("dose1", Capo.max);
+		Callable<ResponseEntity<Response<AggregationResult>>> callable = () -> {
 			
-			Response<Document> res = successResponse("Comune con più vaccinati una dose", body);
-			return new ResponseEntity<Response<Document>>(res, HttpStatus.OK);
+			Response<AggregationResult> res = successResponse("Comune con più vaccinati una dose", aggregator.capoSomma("dose1", Capo.max));
+			return new ResponseEntity<Response<AggregationResult>>(res, HttpStatus.OK);
 		};
-		Future<ResponseEntity<Response<Document>>> future = executorService.submit(callable);
+		Future<ResponseEntity<Response<AggregationResult>>> future = executorService.submit(callable);
 		
-		futures.add(future);
-		ResponseEntity<Response<Document>> res = future.get(200, TimeUnit.MILLISECONDS);
-		futures.remove(future);
+		ResponseEntity<Response<AggregationResult>> res = future.get(200, TimeUnit.MILLISECONDS);
 		
 		return res;
 	}
 	
 	// Trovare il comune con più vaccinati in doppia dose
 	@GetMapping(path = "comune_max_doppia")
-	public ResponseEntity<Response<Document>> comuneMaxDoppia () throws Exception {
+	public ResponseEntity<Response<AggregationResult>> comuneMaxDoppia () throws Exception {
 		
-		Callable<ResponseEntity<Response<Document>>> callable = () -> {
-			Document body = aggregator.capoSomma("dose2", Capo.max);
+		Callable<ResponseEntity<Response<AggregationResult>>> callable = () -> {
 			
-			Response<Document> res = successResponse("Comune con più vaccinati doppia dose", body);
-			return new ResponseEntity<Response<Document>>(res, HttpStatus.OK);
+			Response<AggregationResult> res = successResponse("Comune con più vaccinati doppia dose", aggregator.capoSomma("dose2", Capo.max));
+			return new ResponseEntity<Response<AggregationResult>>(res, HttpStatus.OK);
 		};
-		Future<ResponseEntity<Response<Document>>> future = executorService.submit(callable);
+		Future<ResponseEntity<Response<AggregationResult>>> future = executorService.submit(callable);
 		
-		futures.add(future);
-		ResponseEntity<Response<Document>> res = future.get(200, TimeUnit.MILLISECONDS);
-		futures.remove(future);
+		ResponseEntity<Response<AggregationResult>> res = future.get(200, TimeUnit.MILLISECONDS);
 		
 		return res;
 	}
 	
 	// Trovare il comune con meno vaccinati in singola dose
 	@GetMapping(path = "comune_min_singola")
-	public ResponseEntity<Response<Document>> comuneMinSingola () throws Exception {
+	public ResponseEntity<Response<AggregationResult>> comuneMinSingola () throws Exception {
 		
-		Callable<ResponseEntity<Response<Document>>> callable = () -> {
-			Document body = aggregator.capoSomma("dose1", Capo.min);
+		Callable<ResponseEntity<Response<AggregationResult>>> callable = () -> {
 			
-			Response<Document> res = successResponse("Comune con meno vaccinati singola dose", body);
-			return new ResponseEntity<Response<Document>>(res, HttpStatus.OK);
+			Response<AggregationResult> res = successResponse("Comune con meno vaccinati singola dose", aggregator.capoSomma("dose1", Capo.min));
+			return new ResponseEntity<Response<AggregationResult>>(res, HttpStatus.OK);
 		};
-		Future<ResponseEntity<Response<Document>>> future = executorService.submit(callable);
+		Future<ResponseEntity<Response<AggregationResult>>> future = executorService.submit(callable);
 		
-		futures.add(future);
-		ResponseEntity<Response<Document>> res = future.get(200, TimeUnit.MILLISECONDS);
-		futures.remove(future);
+		ResponseEntity<Response<AggregationResult>> res = future.get(200, TimeUnit.MILLISECONDS);
 		
 		return res;
 	}
 	
 	// Trovare il comune con meno vaccinati in doppia dose
 	@GetMapping(path = "comune_min_doppia")
-	public ResponseEntity<Response<Document>> comuneMinDoppia () throws Exception {
+	public ResponseEntity<Response<AggregationResult>> comuneMinDoppia () throws Exception {
 		
-		Callable<ResponseEntity<Response<Document>>> callable = () -> {
-			Document body = aggregator.capoSomma("dose2", Capo.min);
+		Callable<ResponseEntity<Response<AggregationResult>>> callable = () -> {
 			
-			Response<Document> res = successResponse("Comune con più vaccinati doppia dose", body);
-			return new ResponseEntity<Response<Document>>(res, HttpStatus.OK);
+			Response<AggregationResult> res = successResponse("Comune con più vaccinati doppia dose", aggregator.capoSomma("dose2", Capo.min));
+			return new ResponseEntity<Response<AggregationResult>>(res, HttpStatus.OK);
 		};
-		Future<ResponseEntity<Response<Document>>> future = executorService.submit(callable);
+		Future<ResponseEntity<Response<AggregationResult>>> future = executorService.submit(callable);
 		
-		futures.add(future);
-		ResponseEntity<Response<Document>> res = future.get(200, TimeUnit.MILLISECONDS);
-		futures.remove(future);
+		ResponseEntity<Response<AggregationResult>> res = future.get(200, TimeUnit.MILLISECONDS);
 		
 		return res;
 	}
 	
 	// Trovare il comune con più vaccinati in singola dose per una data provincia
 	@GetMapping(path = "comune_max_singola/prov")
-	public ResponseEntity<Response<Document>> comuneMaxSingola (@RequestParam String sigla) throws Exception {
+	public ResponseEntity<Response<AggregationResult>> comuneMaxSingola (@RequestParam String sigla) throws Exception {
 		
-		Callable<ResponseEntity<Response<Document>>> callable = () -> {
+		Callable<ResponseEntity<Response<AggregationResult>>> callable = () -> {
 			if (!service.siglaEsiste(sigla))
 				throw new ProvinciaNotFoundException(sigla);
 			
-			Document body = aggregator.capoSommaFiltra("dose1", Capo.max, sigla);
-			Response<Document> res = successResponse("Comune in provincia " + sigla + " con più vaccinati una dose", body);
-			return new ResponseEntity<Response<Document>>(res, HttpStatus.OK);
+			Response<AggregationResult> res = successResponse(
+					"Comune in provincia " + sigla + " con più vaccinati una dose",
+					aggregator.capoSommaFiltra("dose1", Capo.max, sigla));
+			return new ResponseEntity<Response<AggregationResult>>(res, HttpStatus.OK);
 		};
-		Future<ResponseEntity<Response<Document>>> future = executorService.submit(callable);
+		Future<ResponseEntity<Response<AggregationResult>>> future = executorService.submit(callable);
 		
-		futures.add(future);
-		ResponseEntity<Response<Document>> res = future.get(200, TimeUnit.MILLISECONDS);
-		futures.remove(future);
+		ResponseEntity<Response<AggregationResult>> res = future.get(200, TimeUnit.MILLISECONDS);
 		
 		return res;
 	}
 	
 	// Trovare il comune con più vaccinati in doppia dose per una data provincia
 	@GetMapping(path = "comune_max_doppia/prov")
-	public ResponseEntity<Response<Document>> comuneMaxDoppia (@RequestParam String sigla) throws Exception {
+	public ResponseEntity<Response<AggregationResult>> comuneMaxDoppia (@RequestParam String sigla) throws Exception {
 		
-		Callable<ResponseEntity<Response<Document>>> callable = () -> {
+		Callable<ResponseEntity<Response<AggregationResult>>> callable = () -> {
 			if (!service.siglaEsiste(sigla))
 				throw new ProvinciaNotFoundException(sigla);
 			
-			Document body = aggregator.capoSommaFiltra("dose2", Capo.max, sigla);
-			Response<Document> res = successResponse("Comune in provincia " + sigla + " con più vaccinati doppia dose", body);
-			return new ResponseEntity<Response<Document>>(res, HttpStatus.OK);
+			Response<AggregationResult> res = successResponse(
+					"Comune in provincia " + sigla + " con più vaccinati doppia dose",
+					aggregator.capoSommaFiltra("dose2", Capo.max, sigla));
+			return new ResponseEntity<Response<AggregationResult>>(res, HttpStatus.OK);
 		};
-		Future<ResponseEntity<Response<Document>>> future = executorService.submit(callable);
+		Future<ResponseEntity<Response<AggregationResult>>> future = executorService.submit(callable);
 		
-		futures.add(future);
-		ResponseEntity<Response<Document>> res = future.get(200, TimeUnit.MILLISECONDS);
-		futures.remove(future);
+		ResponseEntity<Response<AggregationResult>> res = future.get(200, TimeUnit.MILLISECONDS);
 		
 		return res;
 	}
