@@ -1,6 +1,6 @@
 package com.depa.progettinocovid.DataExtractor.rest;
 
-import java.util.Date;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,44 +9,40 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.depa.progettinocovid.DataExtractor.exceptions.BadTemaRequestException;
-import com.depa.progettinocovid.DataExtractor.factory.ServiceFactory;
-import com.depa.progettinocovid.DataExtractor.model.Processo;
-import com.depa.progettinocovid.DataExtractor.service.GenericService;
-import com.depa.progettinocovid.DataExtractor.service.ProcessoService;
+import com.depa.progettinocovid.DataExtractor.context.ApplicationContextProvider;
 
-import commons.model.TemaEnum;
 import commons.rest.Response;
 
 @RestController
 public class EstrazioneRestController {
+
+	@Autowired
+	private ApplicationContextProvider provider;
 	
 	@Autowired
-	private ServiceFactory factory;
+	private ThreadPoolExecutor threadExecutor;
 	
-	@Autowired
-	private ProcessoService processoService;
-	
-	// TODO ENUM
 	@GetMapping(path = "/estrai/{tema}")
 	public ResponseEntity<Response<Object>> estrai (@PathVariable String tema){
+		Thread controller = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				EstrazioneRunnable estrazione = new EstrazioneRunnable(provider.getApplicationContext());
+				estrazione.setTema(tema);
+				threadExecutor.execute(estrazione);
+				try {
+					System.out.println("Thread interrupted: " + estrazione.getWorker().isInterrupted());
+					Thread.sleep(5000);
+					estrazione.stop();
+					System.out.println("Thread interrupted: " + estrazione.getWorker().isInterrupted());
+				} catch (InterruptedException e) {
+					return;
+				}
+			}
+		});
 		
-		TemaEnum temaPassato;
-		try {
-			temaPassato = TemaEnum.valueOf(tema.toUpperCase());
-		} catch (IllegalArgumentException e) {
-			throw new BadTemaRequestException();
-		}
-		
-		Processo processo = new Processo();
-		processo.setTipo(tema);
-		processo.setInizio(new Date());
-		GenericService service = factory.getService(temaPassato);
-		service.prendiDati();
-		service.pubblicaDati();
-		processo.setFine(new Date());
-		
-		processoService.save(processo);
+		controller.run();
 		
 		Response<Object> res = Response.<Object>builder()
 				.type(Response.Type.SUCCESS)

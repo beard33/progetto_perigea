@@ -20,7 +20,6 @@ public class ServiceFactory implements AbstractFactory {
 	
 	// TODO ENUM
 	public GenericService getService(TemaEnum type) {
-		System.out.println(type);
 		if (type.equals(TemaEnum.SOMMINISTRAZIONI)) {
 			return somministrazioniService;
 		} else if (type.equals(TemaEnum.STATI_CLINICI)) {

@@ -63,6 +63,7 @@ public class SchedulerService {
 		
 		ScheduledInfo info = ScheduledInfo.builder()
 				.id(detail.getKey().getName())
+				.nextFireTime(trigger.getNextFireTime())
 				.cron(cron)
 				.tema(tema)
 				.tipo(Tipo.PERIODICO.name())

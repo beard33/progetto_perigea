@@ -33,6 +33,7 @@ public class SchedulerRestController {
 	public ResponseEntity<ScheduledInfo> schedulePeriodico(@PathVariable String tema,
 			@RequestParam String cron) {
 		
+		// FIXME NextFireTime = null
 		return new ResponseEntity<>(service.scheduleEstrazioneCron(tema, cron), HttpStatus.OK);
 	}
 	

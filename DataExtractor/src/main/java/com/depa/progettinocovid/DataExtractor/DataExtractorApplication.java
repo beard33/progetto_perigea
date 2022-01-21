@@ -1,5 +1,8 @@
 package com.depa.progettinocovid.DataExtractor;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -18,5 +21,10 @@ public class DataExtractorApplication {
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
+	}
+	
+	@Bean
+	public ThreadPoolExecutor threadExecutor() {
+		return (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
 	}
 }

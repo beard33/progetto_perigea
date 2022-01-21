@@ -31,6 +31,7 @@ public class ScheduledInfo {
 	private String tema;
 	
 	@Field
+	//TODO enum
 	private String tipo;
 	
 	@Field

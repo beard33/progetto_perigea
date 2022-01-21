@@ -12,7 +12,7 @@ import commons.model.SomministrazioneDto;
 @Service
 public class SomministrazioneService implements GenericService {
 	
-	private List<SomministrazioneDto> lista;
+	private static List<SomministrazioneDto> lista;
 	
 	@Autowired
 	SomministrazioniRestClient client;
