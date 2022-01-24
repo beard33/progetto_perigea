@@ -26,7 +26,7 @@ public class DataExtractorApplication {
 	
 	@Bean
 	public ThreadPoolExecutor threadExecutor() {
-		return (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
+		return (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
 	}
 	
 	@Bean

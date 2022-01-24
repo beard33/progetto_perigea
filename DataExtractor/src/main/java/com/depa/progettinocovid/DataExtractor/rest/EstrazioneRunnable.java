@@ -51,7 +51,6 @@ public class EstrazioneRunnable implements Runnable {
 		try {
 			Thread.sleep(7000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			return;
 		}
 	}

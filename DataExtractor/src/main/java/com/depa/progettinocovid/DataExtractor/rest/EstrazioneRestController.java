@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.depa.progettinocovid.DataExtractor.context.ApplicationContextProvider;
+import com.depa.progettinocovid.DataExtractor.exceptions.TemaAlreadyRunningException;
 
 import commons.rest.Response;
 
@@ -33,12 +34,7 @@ public class EstrazioneRestController {
 			if (threadMap.get(tema).isInterrupted()) {
 				threadMap.remove(tema);
 			} else {
-				Response<Object> res = Response.<Object>builder()
-						.type(Response.Type.ERROR)
-						.code(HttpStatus.CONFLICT.value())
-						.description("Request already running")
-						.build();
-				return new ResponseEntity<>(res, HttpStatus.CONFLICT);
+				throw new TemaAlreadyRunningException(tema);
 			}
 		}
 		
@@ -50,8 +46,8 @@ public class EstrazioneRestController {
 				estrazione.setTema(tema);
 				threadExecutor.execute(estrazione);
 				try {
-					System.out.println("Thread interrupted: " + estrazione.getWorker().isInterrupted());
 					Thread.sleep(5000);
+					System.out.println("Thread interrupted: " + estrazione.getWorker().isInterrupted());
 					estrazione.stop();
 					System.out.println("Thread interrupted: " + estrazione.getWorker().isInterrupted());
 				} catch (InterruptedException e) {

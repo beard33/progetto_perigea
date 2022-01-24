@@ -2,7 +2,7 @@ package com.depa.progettinocovid.DataExtractor.exceptions;
 
 import java.util.Date;
 
-public class DateOutOfRangeException extends RuntimeException {
+public class DateOutOfRangeException extends BadRequestException {
 
 	private static final long serialVersionUID = 1L;
 
