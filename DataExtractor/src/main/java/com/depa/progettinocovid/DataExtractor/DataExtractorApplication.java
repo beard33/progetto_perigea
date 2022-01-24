@@ -1,5 +1,6 @@
 package com.depa.progettinocovid.DataExtractor;
 
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -26,5 +27,10 @@ public class DataExtractorApplication {
 	@Bean
 	public ThreadPoolExecutor threadExecutor() {
 		return (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
+	}
+	
+	@Bean
+	public ConcurrentHashMap<String, Thread> threadMap() {
+		return new ConcurrentHashMap<String, Thread>();
 	}
 }

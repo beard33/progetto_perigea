@@ -27,11 +27,11 @@ public class EstrazioneRunnable implements Runnable {
 	public EstrazioneRunnable(ApplicationContext context) {
 		this.processoService = context.getBean(ProcessoService.class);
 		this.factory = context.getBean(ServiceFactory.class);
+		this.worker = Thread.currentThread();
 	}
 	
 	@Override
 	public void run() {
-		this.worker = Thread.currentThread();
 		Processo processo = new Processo();
 		processo.setTipo(tema);
 		processo.setInizio(new Date());

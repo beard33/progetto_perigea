@@ -1,5 +1,6 @@
 package com.depa.progettinocovid.DataExtractor.rest;
 
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,25 @@ public class EstrazioneRestController {
 	@Autowired
 	private ThreadPoolExecutor threadExecutor;
 	
+	@Autowired
+	private ConcurrentHashMap<String, Thread> threadMap;
+	
 	@GetMapping(path = "/estrai/{tema}")
 	public ResponseEntity<Response<Object>> estrai (@PathVariable String tema){
+		
+		if (threadMap.containsKey(tema)) {
+			if (threadMap.get(tema).isInterrupted()) {
+				threadMap.remove(tema);
+			} else {
+				Response<Object> res = Response.<Object>builder()
+						.type(Response.Type.ERROR)
+						.code(HttpStatus.CONFLICT.value())
+						.description("Request already running")
+						.build();
+				return new ResponseEntity<>(res, HttpStatus.CONFLICT);
+			}
+		}
+		
 		Thread controller = new Thread(new Runnable() {
 			
 			@Override
@@ -41,6 +59,8 @@ public class EstrazioneRestController {
 				}
 			}
 		});
+		
+		threadMap.put(tema, controller);
 		
 		controller.run();
 		
